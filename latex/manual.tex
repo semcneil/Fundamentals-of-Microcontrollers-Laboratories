@@ -1,0 +1,84 @@
+% Fundamentals of Microcontrollers Laboratory Manual
+% 
+% Manual to accompany the class lab
+%
+% Seth McNeill
+% Started 2022 August 25
+
+\documentclass[12pt,oneside]{book}
+\usepackage{datetime}  % for automated current date on the document
+\setcounter{secnumdepth}{3}  % to make subsubsections numbered
+\usepackage{amsmath}  % for aligned equations and such
+\usepackage[table]{xcolor}  % to color text
+\usepackage[pdftex]{graphicx} % for includegraphics?
+\usepackage{siunitx}  % for aligning tables by decimal point
+\usepackage{pdfpages}  % to include PDF files in the document
+\usepackage{listings}  % for code listings
+
+% For creating nice addition figures
+% based on https://tex.stackexchange.com/a/96764
+\usepackage{cancel}
+\usepackage{physics}  % for derivative symbols
+\usepackage{tikz}
+\usepackage{pdflscape}  % to make landscape pages that are turned in the pdf file
+\usetikzlibrary{matrix, shapes, arrows.meta, positioning, angles, quotes}
+\newcommand{\addend}{\text{\textsl{\color{gray}{Addend}}}}
+\newcommand{\augend}{\text{\textsl{\color{gray}{Augend}}}}
+\newcommand{\sumOut}{\text{\textsl{\color{gray}{Sum}}}}
+% end addition figure requirements
+\usepackage{hyperref}  % for URL hyperlinks
+
+\hypersetup{
+colorlinks,
+citecolor=black,
+filecolor=black,
+linkcolor=blue,
+urlcolor=blue
+}
+
+% setup listings for C++ and desired results
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\fontfamily{pcr}\selectfont,        % the size of the fonts that are   basicstyle=\fontfamily{psc}\selectfont,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+%  commentstyle=\color{green},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stringstyle=\color{black},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+
+% for automated current date on the document
+\newdateformat{myDate}{\THEYEAR{ }\monthname[\THEMONTH] \twodigit{\THEDAY}}
+
+% Referencing commands 
+\newcommand{\chaplabel}[1]{\label{chap:#1}}
+\newcommand{\chapref}[1]{Chapter~\ref{chap:#1}}
+\newcommand{\seclabel}[1]{\label{sec:#1}}
+\newcommand{\secref}[1]{Section~\ref{sec:#1}}
+
+\title{Fundamentals of Applied Microcontrollers Laboratory Manual}
+\author{Seth McNeill}
+\date{Edition Fall 2022 (v0.5) \\ \myDate\today}
+
+\begin{document}
+	\maketitle
+
+	\tableofcontents
+
+	% include chapters here
+	\include{intro/intro.tex}
+	%\include{numbers/numbers.tex}
+
+\end{document}
