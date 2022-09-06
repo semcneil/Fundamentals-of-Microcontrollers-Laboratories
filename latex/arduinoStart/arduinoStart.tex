@@ -1,0 +1,81 @@
+\chapter{Arduino Startup}
+\chaplabel{arduino}
+
+section{Installing the IDE}
+These directions assume that you are using the lab computers and One Drive.
+\begin{enumerate}
+	\item Go to software download page: \href{https://www.arduino.cc/en/software}{https://www.arduino.cc/en/software}
+	\item Download the Windows ZIP file (not the first link or the app)
+	\item Open the zip file and copy the folder inside (arduino-1.8.19 as of this writing) into your One Drive folder. This may take a while. If you are on your own computer, you can use any of the programs.
+	\item Once that transfer finishes, go into the folder and run arduino.exe. Windows will try to save you, but if you click More Info you can click Run Anyway.
+	\item Windows Defender Firewall will also complain. Uncheck the box that is checked and/or click Cancel.
+	\item It should load up with a window that looks like Figure \ref{fig:emptysketch}.
+	\item In order to get it to connect correctly to your board, you need to install the Arduino Nano Connect RP2040 board.
+	\begin{enumerate}
+		\item Navigate to Tools$\rightarrow$Board: ``Arduino Uno" (or similar)$\rightarrow$Boards Manager
+		\item It should load as shown in Figure \ref{fig:boardsManager}.
+		\item In the search bar, type ``arduino nano connect" (without the quotes)
+		\item The first item should be Arduino Mbed OS Nano Boards and should list the Arduino Nano RP2040 Connect.
+		\item Move your cursor over it and it should show an Install button. Click it to install the board library.
+		\item Wait for it to finish.
+		\item While you are waiting, plug your Nano Connect into your computer and let it install it.
+		\item As it finished, I received a User Account Control warning asking if I wanted to let dpinst-amd64.exe make changes to my device. I said yes.
+		\item Next it asked me if I wanted to install Arduino Universal Serial Bus devices. Again, click to Install.
+		\item It popped up again and I clicked Install again. Now it should say that the Arduino Mbed OS Nano Boards has been installed.
+		\item Close the Boards Manager.
+	\end{enumerate}
+	\item Now go to Files$\rightarrow$Examples$\rightarrow$01.Basics$\rightarrow$Blink.
+	\item This will open another window with the Blink program.
+	\item Go to Tools$\rightarrow$Board$\rightarrow$Arduino Mbed OS Nano Boards and select the Arduino Nano RP2040 Connect
+	\item Go to Tools$\rightarrow$Port and select the COM that isn't COM1 (mine showed up as COM5)
+	\item Click the right arrow under the word edit in the menu to Uplaod the sketch to the Arduino board.
+	\item It should say ``Compiling sketch..." in the lower left and show a progress bar on the lower right.
+	\item Then it should switch to Uploading... and finally Done Uploading.
+	\item An orange light near the USB port on your board should be blinking.
+	\item Congratulations! You have programmed your board!
+	\item Now look in the program for the two delay statements. Try changing the values inside the parentheses and re-uploading it. Does the blinking change?
+	\item In order to save files and have it portable, you need to change the directory where the Arduino IDE stores it's sketchbooks
+	\begin{enumerate}
+		\item Go to File$\rightarrow$Preferences
+		\item Change the Sketchbook location to your OneDrive and a folder named arduino (lowercase is good)
+		\item My OneDrive was in \\C:\textbackslash Users\textbackslash mcneils2\textbackslash OneDrive - Embry-Riddle 
+		Aeronautical University\textbackslash arduino
+	\end{enumerate}
+	\item Now try saving the blink sketch with your changed values.
+	\item Demonstrate your working blink and it's storage location to your instructor/TA
+	\item Here are some other Examples to test:
+	\begin{enumerate}
+		\item Basics $\rightarrow$ fade: change the variable led to be LED\_BUILTIN, watch the red/orange LED pulse
+		\item Analog $\rightarrow$ AnalogInOutSerial: change analogInPin to A1 and analogOutPin to LED\_BUILTIN. Turn 
+				the potentiometer (R6) with a screwdriver and watch the LED change accordingly. If you press the magnifying
+				glass button in the top right the actual values will scroll by. You may need to set the baud rate to 9600.
+		\item Digital $\rightarrow$ DigitalInputPullup: Change the first pinMode call to use 9 instead of 2. The same for 
+				the digitalRead command (2$\rightarrow$9). Press the left button and see the LED blink. The right button is 
+				pin 10. Note that this program isn't written as well as the others since you have to change a number in two
+				places. Could you rewrite it better?
+	\end{enumerate}
+    \item Finally, create a sketch called \lstinline$getIDs$ using the code at \\ 
+        \href{https://github.com/semcneil/CEC325Examples/blob/main/getIDs/getIDs.ino}{https://github.com/semcneil/CEC325Examples/blob/main/getIDs/getIDs.ino}
+    \item Run \lstinline$getIDs$ and submit the results in the end of lab Canvas quiz.
+\end{enumerate}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=1.0]{arduinoStart/emptysketch.PNG}
+	\caption{This is what the Arduino IDE should load up to.}
+	\label{fig:emptysketch}
+\end{figure} 
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.9]{arduinoStart/BoardsManager.PNG}
+	\caption{This what the Boards Manager loads up to.}
+	\label{fig:boardsManager}
+\end{figure} 
+
+\section{Turn In}
+\begin{enumerate}
+    \item Make sure that the TA or instructor has signed off on your modified blink sketch.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
