@@ -1,8 +1,32 @@
 \chapter{Arduino Startup}
 \chaplabel{arduino}
 
-section{Installing the IDE}
-These directions assume that you are using the lab computers and One Drive.
+\section{Installing the IDE}
+We want to try installing the IDE at least two different ways. First, on the lab computer, then on your personal
+computers if you have them. Both lab partners should try installing the software on the lab computer, each with 
+their own login.
+
+\subsection{Lab Computer}
+This method may also work on your personal computers.
+\begin{enumerate}
+    \item On the search bar, type in Microsoft Store.
+    \item Click on Microsoft Store
+    \item In the store search, type arduino
+    \item Arduino IDE App should appear, click on it
+    \item Click on Get
+    \item You do not need to sign into Microsoft to make this install work even if prompted
+    \item Once it has installed, run the Arduino IDE app. 
+	\item It should load up with a window that looks like Figure \ref{fig:emptysketch}.
+\end{enumerate}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=1.0]{arduinoStart/emptysketch.PNG}
+	\caption{This is what the Arduino IDE should load up to.}
+	\label{fig:emptysketch}
+\end{figure} 
+
+\subsection{Personal Computer}
 \begin{enumerate}
 	\item Go to software download page: \href{https://www.arduino.cc/en/software}{https://www.arduino.cc/en/software}
 	\item Download the Windows ZIP file (not the first link or the app)
@@ -10,11 +34,22 @@ These directions assume that you are using the lab computers and One Drive.
 	\item Once that transfer finishes, go into the folder and run arduino.exe. Windows will try to save you, but if you click More Info you can click Run Anyway.
 	\item Windows Defender Firewall will also complain. Uncheck the box that is checked and/or click Cancel.
 	\item It should load up with a window that looks like Figure \ref{fig:emptysketch}.
+\end{enumerate}
+
+\section{Testing the Setup}
+\subsection{Installing the Board Drivers}
+\begin{enumerate}
 	\item In order to get it to connect correctly to your board, you need to install the Arduino Nano Connect RP2040 board.
 	\begin{enumerate}
 		\item Navigate to Tools$\rightarrow$Board: ``Arduino Uno" (or similar)$\rightarrow$Boards Manager
 		\item It should load as shown in Figure \ref{fig:boardsManager}.
-		\item In the search bar, type ``arduino nano connect" (without the quotes)
+        \begin{figure}[!htb]
+            \centering
+            \includegraphics[scale=0.9]{arduinoStart/BoardsManager.PNG}
+            \caption{This what the Boards Manager loads up to.}
+            \label{fig:boardsManager}
+        \end{figure} 
+        \item In the search bar, type ``arduino nano connect" (without the quotes)
 		\item The first item should be Arduino Mbed OS Nano Boards and should list the Arduino Nano RP2040 Connect.
 		\item Move your cursor over it and it should show an Install button. Click it to install the board library.
 		\item Wait for it to finish.
@@ -24,6 +59,12 @@ These directions assume that you are using the lab computers and One Drive.
 		\item It popped up again and I clicked Install again. Now it should say that the Arduino Mbed OS Nano Boards has been installed.
 		\item Close the Boards Manager.
 	\end{enumerate}
+\end{enumerate}
+
+\subsubsection{Testing the Setup}
+This section can be done on either (or both) computers. The results from one run (between both lab partners)
+is all that needs to be turned in.
+\begin{enumerate}
 	\item Now go to Files$\rightarrow$Examples$\rightarrow$01.Basics$\rightarrow$Blink.
 	\item This will open another window with the Blink program.
 	\item Go to Tools$\rightarrow$Board$\rightarrow$Arduino Mbed OS Nano Boards and select the Arduino Nano RP2040 Connect
@@ -46,12 +87,12 @@ These directions assume that you are using the lab computers and One Drive.
 	\item Here are some other Examples to test:
 	\begin{enumerate}
 		\item Basics $\rightarrow$ fade: change the variable led to be LED\_BUILTIN, watch the red/orange LED pulse
-		\item Analog $\rightarrow$ AnalogInOutSerial: change analogInPin to A1 and analogOutPin to LED\_BUILTIN. Turn 
-				the potentiometer (R6) with a screwdriver and watch the LED change accordingly. If you press the magnifying
-				glass button in the top right the actual values will scroll by. You may need to set the baud rate to 9600.
-		\item Digital $\rightarrow$ DigitalInputPullup: Change the first pinMode call to use 9 instead of 2. The same for 
-				the digitalRead command (2$\rightarrow$9). Press the left button and see the LED blink. The right button is 
-				pin 10. Note that this program isn't written as well as the others since you have to change a number in two
+%		\item Analog $\rightarrow$ AnalogInOutSerial: change analogInPin to A1 and analogOutPin to LED\_BUILTIN. Turn 
+%				the potentiometer (R6) with a screwdriver and watch the LED change accordingly. If you press the magnifying
+%				glass button in the top right the actual values will scroll by. You may need to set the baud rate to 9600.
+		\item Digital $\rightarrow$ DigitalInputPullup: Change the first pinMode call to use A0 instead of 2. The same for 
+				the digitalRead command (2$\rightarrow$A0). Press the right button (SW1) and see the LED blink. 
+				 Note that this program isn't written as well as the others since you have to change a number in two
 				places. Could you rewrite it better?
 	\end{enumerate}
     \item Finally, create a sketch called \lstinline$getIDs$ using the code at \\ 
@@ -59,19 +100,6 @@ These directions assume that you are using the lab computers and One Drive.
     \item Run \lstinline$getIDs$ and submit the results in the end of lab Canvas quiz.
 \end{enumerate}
 
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[scale=1.0]{arduinoStart/emptysketch.PNG}
-	\caption{This is what the Arduino IDE should load up to.}
-	\label{fig:emptysketch}
-\end{figure} 
-
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[scale=0.9]{arduinoStart/BoardsManager.PNG}
-	\caption{This what the Boards Manager loads up to.}
-	\label{fig:boardsManager}
-\end{figure} 
 
 \section{Turn In}
 \begin{enumerate}
