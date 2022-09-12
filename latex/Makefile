@@ -1,4 +1,4 @@
-chapters = intro/intro.tex
+chapters = intro/intro.tex arduinoStart/arduinoStart.tex MuxLed/MuxLed.tex
 
 manual.pdf : manual.tex $(chapters)
 	latexmk -pdf manual
