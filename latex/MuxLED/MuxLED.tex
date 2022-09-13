@@ -1,0 +1,114 @@
+\chapter{Multiplexer, LED Display, Binary, HEX}
+\chaplabel{muxled}
+
+\section{Purpose}
+The goal of this lab is to use binary and hexadecimal numbers in an applied setting. This is 
+achieved by having you (the student) use the Arduino Nano Connect RP2040 to setup the 
+PCA9535 I$^2$C Input/Output (IO) port chip to drive a 4-digit LED display.
+
+\section{Resources}\label{sec:resources}
+\begin{enumerate}
+    \item \href{https://www.nxp.com/docs/en/data-sheet/PCA9535_PCA9535C.pdf}{PCA9535 datasheet}
+    \item \href{https://datasheet.lcsc.com/lcsc/1810191633_SUNLIGHT-SLR0394FG3C5BD-3-5_C225905.pdf}{LED display datasheet}
+    \item \href{https://github.com/semcneil/PCA95x5}{PCA9535 library} (McNeill version)
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+
+\section{Procedure}
+\subsection{Add PCA95x5 library}
+\begin{enumerate}
+    \item Open the Arduino IDE 
+    \item Open preferences
+    \item Note the Sketchbook location 
+    \item Go to the website for the PCA9535 library (see \ref{sec:resources} Resources section)
+    \item Click the green Code button and then Download ZIP
+    \item Save the zip file to your Downloads folder or somewhere else you can find it again
+    \item In the Arduino IDE select Sketch $\rightarrow$ Include Library $\rightarrow$ Add .ZIP Library
+    \item Select the zip file you downloaded earlier
+    \item Wait for the IDE to say "Library added to your libraries"
+    \item Check that the library is indeed installed one of two ways:
+    \begin{enumerate}
+        \item Go to Sketch $\rightarrow$ Include Libraries and look for PCA95x5
+        \item Go to File $\rightarrow$ Examples and look for the PCA95x5 examples
+    \end{enumerate}
+    \item The PCA95x5 library is now added successfully.
+\end{enumerate}
+
+\subsection{Turn on some LEDs}
+An example script is shown in Listing \ref{lst:leddispstart}. Use this as a starting point for your
+code. Be sure to change the header information to include all lab partner names and the correct 
+date. This script displays an 8. in the first digit and zeros in the rest. Note the clearing
+lines to make it so that there is not ghosting of numbers to the right of where they are displayed.
+
+\begin{enumerate}
+    \item Run the script in Listing \ref{lst:leddispstart} to make sure it runs
+    \item Change the script so that it displays four consecutive numbers such as 1234. You can use
+            any 4 consecutive, single digit numbers.
+    \item Demonstrate your sketch working to a TA or instructor.
+\end{enumerate}
+
+\begin{lstlisting}[language=C++, caption={This listing is a starting point for driving the LED display. This sketch may also be available on Canvas.},label={lst:leddispstart}]
+    /* 20220907LEDsClass1.ino
+    *  
+    * Demo of LED display in class.
+    * 
+    * Seth McNeill
+    * 2022 September 07
+    */
+   
+   #include <PCA95x5.h>  // include library
+   
+   PCA9535 LEDmux;  // create instance (object) of library
+   
+   void setup() {
+     Serial.begin(115200);
+     while(!Serial);
+     Serial.println("Starting...");
+   
+     // initialize object
+     Wire.begin();
+     LEDmux.attach(Wire, 0x21);
+     LEDmux.polarity(PCA95x5::Polarity::ORIGINAL_ALL);
+     uint16_t mux_direction = 0;
+     mux_direction = 0x0010;  // mostly outputs
+     LEDmux.direction(mux_direction);
+   
+     Serial.println("Everything setup");
+   }
+   
+   
+   void loop() {
+     int delayTime = 0;
+     // use object
+     LEDmux.write(0x000F);  // required to remove ghosting on other digits
+     LEDmux.write(0xFF0E);
+     delay(delayTime); 
+     LEDmux.write(0x000F);  // required to remove ghosting on other digits
+     LEDmux.write(0x3F0D);
+     delay(delayTime); 
+     LEDmux.write(0x000F);  // required to remove ghosting on other digits
+     LEDmux.write(0x3F0B);
+     delay(delayTime); 
+     LEDmux.write(0x000F);  // required to remove ghosting on other digits
+     LEDmux.write(0x3F07);
+     delay(delayTime); 
+   }
+\end{lstlisting}
+    
+\subsection{Count}
+Make a new sketch, based off your first sketch (meaning copy and paste it into the new sketch).
+This new sketch should count up from 0 to 9 (or 0000 to 0009) incrementing once per second. 
+
+\subsection{Extra credit}
+Have your counting system count higher than 9.
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item A video of your board counting that includes both of your faces and you saying your names.
+    \item A PDF of your first sketch that displays 4 consecutive numbers.
+    \item A PDF of your second sketch that counts.
+    \item .ino versions of both sketches.
+\end{enumerate}
