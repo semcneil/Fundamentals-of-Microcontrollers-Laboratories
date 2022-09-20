@@ -1,0 +1,251 @@
+\chapter{Buttons and Serial (UART)}
+\chaplabel{buttonserial}
+
+\section{Purpose}
+The goal of this lab is to gain a better understanding of the serial interface between
+the board and the computer, get the buttons all working, and add a few other fun interfaces.
+
+\subsection{Serial Library}
+\subsubsection{Initialization}
+So far we have used the Serial library without much explanation of how to use it best.
+In the sketches we have used we just have used the two lines shown in 
+Listing~\ref{lst:simpleserialstart} to start Serial.
+
+\begin{lstlisting}[language=C++, caption={If serial is required for a sketch this method of 
+    starting Serial blocks until a serial monitor is started.},label={lst:simpleserialstart}]
+    Serial.begin(115200);
+    while(!Serial);
+\end{lstlisting}
+
+However, if a serial connection to the computer is not required, the code in 
+Listing~\ref{lst:simpleserialstart} prevents the rest of the sketch from executing. The Serial
+library does take some time to start so a simple solution is to just delay for a few seconds
+after calling \lstinline$Serial.begin()$ as shown in Listing~\ref{lst:serialstartdelay}.
+
+\begin{lstlisting}[language=C++, caption={If serial is not required for a sketch this method of 
+    starting Serial waits a bit in hopes it connects.},label={lst:serialstartdelay}]
+    Serial.begin(115200);
+    delay(3000);
+\end{lstlisting}
+
+If you want to have the program quit waiting as soon as the Serial connects but not delay forever
+like in Listing~\ref{lst:simpleserialstart}, you can keep checking for a serial connection a fixed
+number of times as shown in Listing~\ref{lst:serialstartdelay}.
+
+\begin{lstlisting}[language=C++, caption={This snippet tries connecting to Serial a fixed 
+    number of times so that it will delay less than Listing~\ref{lst:serialstartdelay} if 
+    a serial connection exists.},label={lst:serialstartcount}]
+    const int maxNoSerial = 300;
+    int noSerialCount = 0;
+    while(!Serial && noSerialCount < maxNoSerial) {
+      delay(10);
+      noSerialCount++;
+    }
+\end{lstlisting}
+
+\subsubsection{print vs println}
+If you want to print a string with an endline, use \lstinline$Serial.println()$. This is 
+handy for statements like \lstinline$Serial.println("Starting...")$. However, if you 
+want to print out the value of variables you often don't want newline at the end of
+the print. For this you use \lstinline$Serial.print()$. Some examples are shown in 
+Listing~\ref{lst:serialprintprintln}.
+\begin{lstlisting}[language=C++, caption={This snippet shows using print and println},label={lst:serialprintprintln}]
+    Serial.print("Number of Names: ");
+    Serial.println(nNames);
+    \dots
+    Serial.print(F("You're connected to the network, IP = "));
+    Serial.println(WiFi.localIP());    
+\end{lstlisting}
+
+\subsubsection{Reading data from the Serial}
+The serial connection goes both ways. Information can be sent from the computer to 
+your board. Listing~\ref{lst:serialreceiveexample} is an example of using input from 
+the serial port. The call to \lstinline$Serial.available()$ tells the sketch whether
+or not any characters have been received by the serial port. If characters have been
+received by the serial port, \lstinline$Serial.read()$ reads them in one character at 
+a time. The \lstinline$switch$ function allows different responses depending on what 
+character is received. 
+
+Note the layout of the sketch. It is important to define the pins for accessories so 
+that they can be used later. 
+
+\begin{lstlisting}[language=C++, caption={This sketch shows controlling parts of the 
+    board using input from the serial port. Remember, don't copy and paste from a PDF
+    since that process garbles some of the characters.},label={lst:serialreceiveexample}]
+    /*  CEC325-SerialRcv.ino
+    *  
+    *  Demonstrates receiving and reacting to serial input.
+    *  Uses the ERAU CEC325 board v0.3 which has an 
+    *  Arduino Nano RP2040 Connect on board.
+    *  
+    *  Seth McNeill
+    *  2022 February 09
+    *  2022 September 20 modified for v0.5 board
+    *  
+    *  This code in the public domain.
+    */
+   
+   #include <WiFiNINA.h>  // for RGB LED and A7 (right button)
+   
+   // pin definitions:
+   #define RIGHT_BUTTON_PIN  A0 // requires external pullup, including WiFiNINA.h and #define
+   #define BUZZ_PIN          2 // buzzer
+   
+   
+   void setup() {
+     // initialize serial:
+     Serial.begin(115200);
+     while(!Serial) delay(100); // wait for serial to begin
+     Serial.println("Starting...");
+     
+     // make the pins outputs:
+     pinMode(LEDR, OUTPUT);  // WiFiNINA RGB LED red
+     pinMode(LEDG, OUTPUT);  // WiFiNINA RGB LED green
+     pinMode(LEDB, OUTPUT);  // WiFiNINA RGB LED blue
+     pinMode(RIGHT_BUTTON_PIN, INPUT);  // internal pullup not tied to IDE
+     pinMode(LED_BUILTIN, OUTPUT);
+     pinMode(BUZZ_PIN, OUTPUT);  // buzzer pin is output
+   }
+   
+   void loop() {
+     while(Serial.available() > 0) {  // characters have been received
+       char inChar = Serial.read();
+       switch(inChar) {
+         case 'a': digitalWrite(LED_BUILTIN,HIGH); break;
+         case 'A': digitalWrite(LED_BUILTIN,LOW); break;
+         case 'b': digitalWrite(LEDB, HIGH); break;
+         case 'r': digitalWrite(LEDR, HIGH); break;
+         case 'g': digitalWrite(LEDG, HIGH); break;
+         case '+': add(); break;
+         case 'o': ledsOff(); break;
+         case 'z': tone(BUZZ_PIN, 1000, 100); break;
+         case '\n': break;
+         default: Serial.print("Unknown character: "); Serial.println(inChar);
+       }
+     }
+   }
+   
+   // turns off all 4 LEDs
+   void ledsOff() {
+     digitalWrite(LED_BUILTIN,LOW);
+     digitalWrite(LEDR,LOW);
+     digitalWrite(LEDG,LOW);
+     digitalWrite(LEDB,LOW);
+   }
+   
+   // Adds characters received subsequent to +
+   void add() {
+     Serial.println("Adding single digit numbers");
+     int a = Serial.read() - 48; // subtract off value of ASCII 0
+     int b = Serial.read() - 48; // subtract off value of ASCII 0
+     Serial.print(a);
+     Serial.print('+');
+     Serial.print(b);
+     Serial.print('=');
+     Serial.println(a+b);
+   }   
+\end{lstlisting}
+
+
+\subsection{Buttons}
+\subsubsection{I/O Setup}
+To use general I/O pins on a processor in Arduino the pin has to be defined as an 
+input or an output. This is done in the \lstinline$setup()$ function using the 
+\lstinline$pinMode()$ function. It has the form of 
+\lstinline$pinMode(pinNumber, direction)$. The pinNumber is typically the number 
+defined in the Arduino specifications as D1 or A0. If it is a D1 type number, then
+just pass the number to pinMode. If it is an A0 type number, you have to specify 
+both the letter and the number. So for the righthand button (SW1) on the v0.5 board 
+that is attached to the A0 pin you would use \lstinline$pinMode(A0, INPUT)$ since
+it is an input. The buzzer is attached to pin D2 so we would set it up as 
+\lstinline$pinMode(2, OUTPUT)$ since it is an output. 
+
+\subsubsection{Reading and Writing Pins}
+Once the pinMode has been setup, you can read the value from an input using the 
+\lstinline@digitalRead(pinNum)@ function which takes a pin number as an argument
+and returns a 1 or 0 (LOW or HIGH) depending on the read value.
+
+To write a value to an output pin, use the \lstinline@digitalWrite(pinNum, value)@ 
+function. It also takes a pin number as an input along with whether you want the 
+output LOW or HIGH. 
+
+Since you will be using the pin number in multiple places, it is best to define it 
+with a name at the top of the program so that you can change it at all places in 
+your program by changing it once.
+
+Examples of reading and writing pins after setting their mode can be seen in 
+Listing~\ref{lst:serialreceiveexample}.
+
+\subsubsection{Other buttons}
+The v0.5 board has 4 buttons. SW1 is attached to A0 and can be read directly using
+\lstinline@digitalRead@. The other three buttons (SW2, FRONT\_SW, and BACK\_SW) are 
+connected to the PCA9535 I2C to GPIO chip with an address of 0x20 and have to be 
+accessed using the PCA95x5 library. If you setup the PCA9535 as a variable named 
+\lstinline@muxU31@ (for the chip listed as U31 on the schematic), you can read 
+the input values using \lstinline@uint16_t muxVal = muxU31.read()@. This returns a 16-bit 
+number that corresponds to the 16 inputs on the PCA9535. To determine of a pin is 
+high (set) you need to AND muxVal with the bit of interest. So for instance, to tell 
+if the front switch has been closed (it is at LOW or 0 when not pressed and HIGH or 1
+when pressed) you would use \lstinline@muxVal & 0x02@ since the front switch is the second 
+bit in the lower byte of the PCA9535. Note that SW1 and SW2 have the opposite polarity, 
+they are HIGH when not pressed and LOW when pressed. 
+
+\subsection{Making Noise (buzzer)}
+The board for lab has a buzzer attached to pin D2. Arduino has a handy function called 
+\lstinline@tone(pin, frequency, duration)@. This is an easy way to make your board beep.
+The duration is in milliseconds and the function blocks until the duration expires. Note 
+that there is another version of the function with the form 
+\lstinline@tone(pin, frequency)@ that does not specify a duration. This is a non-blocking
+way to make tones. It will continue to make the tone until a call to \lstinline@noTone(pinNum)@
+is called. 
+
+%\subsection{Measuring Temperature and Humidity}
+%Explain SHT31
+
+\subsection{NeoPixels}
+The board has 18 multicolor LEDs around its periphery. These are called NeoPixels by the 
+Adafruit company. They get called other things by other companies. They are all based on 
+the WS2812 type chip. We will use the Adafruit NeoPixel library. Be sure to install it 
+in the usual manner. It requires the usual:
+\begin{enumerate}
+    \item \#include the library
+    \item Setup the library
+    \item Use the library
+\end{enumerate}
+
+
+\section{Resources}\label{sec:resources}
+\begin{enumerate}
+    \item \href{https://www.arduino.cc/reference/en/language/functions/communication/serial/}{Serial Library}
+    \item \href{https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/}{digitalRead}
+    \item \href{https://www.arduino.cc/reference/en/language/functions/advanced-io/tone/}{tone}
+    \item \href{https://www.arduino.cc/reference/en/language/functions/advanced-io/notone/}{notone}
+    \item \href{https://github.com/adafruit/Adafruit_SHT31}{Adafruit's SHT31 library}
+    \item \href{https://github.com/RobTillaart/SHT31}{Rob Tillaart's SHT31 library}
+    \item \href{https://www.nxp.com/docs/en/data-sheet/PCA9535_PCA9535C.pdf}{PCA9535 datasheet}
+    \item \href{https://github.com/semcneil/PCA95x5}{PCA9535 library} (McNeill version)
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+
+\section{Procedure}
+Write a sketch with the following functionality:
+\begin{enumerate}
+    \item Reads in values from the serial port and does something in response.
+    \item Writes information to the serial port in response to some stimulus/stimuli.
+    \item Reacts to all 4 buttons on the board in some way which can include playing
+            a tone or lighting up the LED display from the last lab or something else.
+    \item Creates a tone in response to some stimulus.
+\end{enumerate}
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item A video of your board fulfilling the requirements in the Procedure section 
+            that includes both of your faces and you saying your names.
+    \item A PDF of your sketch.
+    \item .ino versions of your sketch.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
