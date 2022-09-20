@@ -206,13 +206,54 @@ is called.
 The board has 18 multicolor LEDs around its periphery. These are called NeoPixels by the 
 Adafruit company. They get called other things by other companies. They are all based on 
 the WS2812 type chip. We will use the Adafruit NeoPixel library. Be sure to install it 
-in the usual manner. It requires the usual:
+in the usual manner in the Library Manager. It requires the usual:
 \begin{enumerate}
     \item \#include the library
+    \item Initialize an object
     \item Setup the library
     \item Use the library
 \end{enumerate}
+A minimal sketch to do all these is shown in Listing~\ref{lst:neopixelsetup}
 
+\begin{lstlisting}[language=C++, caption={This snippet shows how to setup and run the NeoPixels on the board.},label={lst:neopixelsetup}]
+    /* NeoPixelSetup.ino
+    * 
+    * A minimum sketch to setup NeoPixels.
+    * 
+    * Seth McNeill
+    * 2022 September 20
+    */
+   
+   #include <Adafruit_NeoPixel.h> // NeoPixel library
+   
+   #define NEO_PIN           17  // WARNING! THIS IS GPIO NOT D NUMBER for NeoPixels
+   #define NEO_COUNT         18  // number of NeoPixels
+   
+   // Declare our NeoPixel strip object:
+   Adafruit_NeoPixel strip(NEO_COUNT, NEO_PIN, NEO_GRB + NEO_KHZ800);
+   
+   void setup() {
+     Serial.begin(115200);
+   
+     // Setup NeoPixels
+     strip.begin();
+     strip.clear();  // Set all pixel values to zero
+     strip.show();   // Write values to the pixels
+   }
+   
+   void loop() {
+     for(int ii = 0; ii < NEO_COUNT; ii++) {
+       // set all the pixels to purple
+       strip.setPixelColor(ii, strip.Color(255,0,255));
+     }
+     strip.show();
+     delay(1000);
+     // turn off all the LEDs
+     strip.clear();
+     strip.show();
+     delay(1000);
+   }   
+\end{lstlisting}
 
 \section{Resources}\label{sec:resources}
 \begin{enumerate}
@@ -220,8 +261,9 @@ in the usual manner. It requires the usual:
     \item \href{https://www.arduino.cc/reference/en/language/functions/digital-io/digitalread/}{digitalRead}
     \item \href{https://www.arduino.cc/reference/en/language/functions/advanced-io/tone/}{tone}
     \item \href{https://www.arduino.cc/reference/en/language/functions/advanced-io/notone/}{notone}
-    \item \href{https://github.com/adafruit/Adafruit_SHT31}{Adafruit's SHT31 library}
-    \item \href{https://github.com/RobTillaart/SHT31}{Rob Tillaart's SHT31 library}
+%    \item \href{https://github.com/adafruit/Adafruit_SHT31}{Adafruit's SHT31 library}
+%    \item \href{https://github.com/RobTillaart/SHT31}{Rob Tillaart's SHT31 library}
+    \item \href{https://www.arduino.cc/reference/en/libraries/adafruit-neopixel/}{Adafruit NeoPixel Library}
     \item \href{https://www.nxp.com/docs/en/data-sheet/PCA9535_PCA9535C.pdf}{PCA9535 datasheet}
     \item \href{https://github.com/semcneil/PCA95x5}{PCA9535 library} (McNeill version)
     \item PCB Schematic and Layout - see 
@@ -237,6 +279,7 @@ Write a sketch with the following functionality:
     \item Reacts to all 4 buttons on the board in some way which can include playing
             a tone or lighting up the LED display from the last lab or something else.
     \item Creates a tone in response to some stimulus.
+    \item Make the NeoPixels do something.
 \end{enumerate}
 
 \section{Turn In}
