@@ -88,7 +88,7 @@ that they can be used later.
    #include <WiFiNINA.h>  // for RGB LED and A7 (right button)
    
    // pin definitions:
-   #define RIGHT_BUTTON_PIN  A0 // requires external pullup, including WiFiNINA.h and #define
+   #define RIGHT_BUTTON_PIN  A0 
    #define BUZZ_PIN          2 // buzzer
    
    
@@ -102,7 +102,7 @@ that they can be used later.
      pinMode(LEDR, OUTPUT);  // WiFiNINA RGB LED red
      pinMode(LEDG, OUTPUT);  // WiFiNINA RGB LED green
      pinMode(LEDB, OUTPUT);  // WiFiNINA RGB LED blue
-     pinMode(RIGHT_BUTTON_PIN, INPUT);  // internal pullup not tied to IDE
+     pinMode(RIGHT_BUTTON_PIN, INPUT);  
      pinMode(LED_BUILTIN, OUTPUT);
      pinMode(BUZZ_PIN, OUTPUT);  // buzzer pin is output
    }
@@ -198,9 +198,6 @@ that there is another version of the function with the form
 \lstinline@tone(pin, frequency)@ that does not specify a duration. This is a non-blocking
 way to make tones. It will continue to make the tone until a call to \lstinline@noTone(pinNum)@
 is called. 
-
-%\subsection{Measuring Temperature and Humidity}
-%Explain SHT31
 
 \subsection{NeoPixels}
 The board has 18 multicolor LEDs around its periphery. These are called NeoPixels by the 
