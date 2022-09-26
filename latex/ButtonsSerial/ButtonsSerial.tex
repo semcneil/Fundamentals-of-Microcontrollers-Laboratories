@@ -3,7 +3,10 @@
 
 \section{Purpose}
 The goal of this lab is to gain a better understanding of the serial interface between
-the board and the computer, get the buttons all working, and add a few other fun interfaces.
+the board and the computer, get the buttons all working, and add a few other fun interfaces. 
+
+Note that the most time consuming part of this lab in 2022 was getting the non-SW1 switches
+working.
 
 \subsection{Serial Library}
 \subsubsection{Initialization}
@@ -180,15 +183,31 @@ Listing~\ref{lst:serialreceiveexample}.
 The v0.5 board has 4 buttons. SW1 is attached to A0 and can be read directly using
 \lstinline@digitalRead@. The other three buttons (SW2, FRONT\_SW, and BACK\_SW) are 
 connected to the PCA9535 I2C to GPIO chip with an address of 0x20 and have to be 
-accessed using the PCA95x5 library. If you setup the PCA9535 as a variable named 
-\lstinline@muxU31@ (for the chip listed as U31 on the schematic), you can read 
-the input values using \lstinline@uint16_t muxVal = muxU31.read()@. This returns a 16-bit 
-number that corresponds to the 16 inputs on the PCA9535. To determine of a pin is 
-high (set) you need to AND muxVal with the bit of interest. So for instance, to tell 
-if the front switch has been closed (it is at LOW or 0 when not pressed and HIGH or 1
-when pressed) you would use \lstinline@muxVal & 0x02@ since the front switch is the second 
-bit in the lower byte of the PCA9535. Note that SW1 and SW2 have the opposite polarity, 
-they are HIGH when not pressed and LOW when pressed. 
+accessed using the PCA95x5 library. 
+
+\begin{enumerate}
+    \item Include the PCA95x5 library
+    \item Create a variable of type PCA9535 named something like \lstinline@muxU31@ 
+            (for the chip listed as U31 on the schematic)
+    \item Initialize the variable/object:
+    \begin{enumerate}
+        \item Start the wire library: \lstinline@Wire.begin()@
+        \item Attach to the mux using the attach method and correct address: 
+                \lstinline@muxU31.attach(Wire, 0x20)@
+        \item Set the polarity: \lstinline@muxU31.polarity(PCA95x5::Polarity::ORIGINAL_ALL)@ 
+        \item Set the direction: \lstinline@muxU31.direction(0x????)@ remembering that a 1 is 
+                an input and a 0 is an output. Set non-connected pins as outputs. Change the 
+                question marks appropriately.
+    \end{enumerate}
+    \item Once the object is properly setup, read values with the \lstinline@read()@ 
+            method. This returns a 16-bit number representing the 16 inputs on the chip.
+    \item A quick way to check if a bit is high is to bitwise AND (\&) it with a number 
+            where only the bit of interest is 1: \lstinline@mux31.read() & 0x0004@ reads 
+            the third input.
+\end{enumerate}
+
+Note that switches SW2, FRONT\_SW and BACK\_SW are are HIGH when not pressed and LOW 
+when pressed while SW1 is LOW when not pressed and HIGH when pressed.
 
 \subsection{Making Noise (buzzer)}
 The board for lab has a buzzer attached to pin D2. Arduino has a handy function called 
@@ -198,6 +217,9 @@ that there is another version of the function with the form
 \lstinline@tone(pin, frequency)@ that does not specify a duration. This is a non-blocking
 way to make tones. It will continue to make the tone until a call to \lstinline@noTone(pinNum)@
 is called. 
+
+\textbf{NOTE:} If the tone function is all that is in a loop, it needs a short delay (10~ms will do)
+after it to keep the Nano Connect RP2040 from crashing.
 
 \subsection{NeoPixels}
 The board has 18 multicolor LEDs around its periphery. These are called NeoPixels by the 
@@ -273,8 +295,13 @@ Write a sketch with the following functionality:
 \begin{enumerate}
     \item Reads in values from the serial port and does something in response.
     \item Writes information to the serial port in response to some stimulus/stimuli.
-    \item Reacts to all 4 buttons on the board in some way which can include playing
-            a tone or lighting up the LED display from the last lab or something else.
+    \item Reacts to all 4 buttons on the board in some way.
+    \begin{enumerate}
+        \item The other buttons are the most difficult part of this lab. START HERE
+        \item Playing a tone
+        \item Lighting up the LED display from the last lab
+        \item NeoPixels
+    \end{enumerate} 
     \item Creates a tone in response to some stimulus.
     \item Make the NeoPixels do something.
 \end{enumerate}
