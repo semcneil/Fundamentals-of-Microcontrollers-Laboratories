@@ -1,0 +1,57 @@
+\chapter{Displays}
+\chaplabel{displays}
+
+\section{Purpose}
+The goal of this lab is to learn to use the TFT display.
+
+\section{Procedure}
+\subsection{Main Requirements}
+Write a sketch with the following functionality:
+\begin{enumerate}
+    \item Choose a favorite character and have it move left 10~pixels for each press
+            of the left button and right 10~pixels for each press of the right button.
+    \begin{enumerate}
+        \item Choose the Y value to one that looks good to you
+        \item If 10~pixels seems to not be a good value feel free to change it, just note
+                that you changed the value.
+        \item This builds on last week's making all the buttons function
+        \item The specifications do require software debouncing of the buttons
+        \item Add logic so that the character doesn't go far off the edge of the screen
+                on either side.
+    \end{enumerate}
+    \item Display a custom message for 3~seconds indicating the start of the program when
+            your program starts 
+    \item Draw some of the drawing primitives (line, circle, rectangle, etc.)
+\end{enumerate}
+
+\subsection{Extra Credit}
+The following are extra credit options with increasing value:
+\begin{enumerate}
+    \item Make the front and back switches move your character up and down along 
+            with the left and right from the Main Requirements. (1~point)
+    \item Make an animation of some kind that lasts at least two seconds. (2~points)
+    \item Make a game that uses the buttons and the screen (5~points)
+\end{enumerate}
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item A video of your board fulfilling the requirements in the Procedure section 
+            that includes both of your faces and you saying your names.
+    \item A PDF of your sketch.
+    \item .ino versions of your sketch.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
+
+\section{Resources}\label{sec:displaysresources}
+\begin{enumerate}
+    \item \href{https://www.adafruit.com/product/4383}{Adafruit 1.14" 240x135 Color TFT Display + MicroSD Card Breakout - ST7789}
+    \item \href{https://www.arduino.cc/reference/en/libraries/adafruit-st7735-and-st7789-library/}{Adafruit ST7789 library}
+    \item \href{https://learn.adafruit.com/adafruit-gfx-graphics-library}{Adafruit GFX library}
+    \item See the chapter in the \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} about displays
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+

@@ -1,6 +1,7 @@
 chapters = intro/intro.tex arduinoStart/arduinoStart.tex MuxLed/MuxLed.tex ButtonsSerial/ButtonsSerial.tex
+chapters2 = displays/displays.tex
 
-manual.pdf : manual.tex $(chapters)
+manual.pdf : manual.tex $(chapters) $(chapters2)
 	latexmk -pdf manual
 	mv manual.pdf ../docs/Fundamentals-of-Microcontrollers-Lab.pdf
 
