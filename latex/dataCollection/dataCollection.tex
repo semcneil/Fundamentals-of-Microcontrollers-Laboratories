@@ -17,19 +17,10 @@ appropriate labels and units if you can make them fit.
 	\item Temperature in Fahrenheit from TEMP0 (U27 attached to input 0 of U37)
 \end{enumerate}
 The light sensors, potentiometer, and temperature sensor are connected to ADS7142 
-analog-to-digital (ADC) sensors. As of 2022 October 03, there is not a library in 
-the Arduino system for this chip, so you will to use the 
-\href{https://github.com/semcneil/ADS7142_Arduino_Library}{one written by semcneil}.
-Use the usual process:
-\begin{enumerate}
-    \item Click on the green Code button
-    \item Download the Zip file 
-    \item Go to the Arduino IDE
-    \item Sketch $\rightarrow$ Include Library $\rightarrow$ Add .ZIP library 
-\end{enumerate}
-When you go back to File $\rightarrow$ Examples, there should now be an example under 
-Anitracks ADS7142. Follow the example combined with your previous work to complete this
-lab.
+analog-to-digital (ADC) sensors. There is a library in the normal library adding 
+method. Look for the library for the ADS7142 by Seth McNeill. After you install it,
+there should now be examples under Anitracks ADS7142. Follow the read2Ch example 
+combined with your previous work to complete this lab.
 
 \subsection{Suggestions}
 Use a \href{https://www.arduino.cc/reference/en/language/variables/data-types/stringobject/}{String} 
