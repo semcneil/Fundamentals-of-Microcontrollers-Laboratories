@@ -42,6 +42,30 @@ Use Adafruit's SHT31 library. Base your code on their example. Be sure
 to make sure that the heater is off. For this class, you do not need to 
 turn on the heater.
 
+Also, the SHT31 needs to be reset each time the program starts. It's 
+reset pin is connected to a PCA9535. Don't forget to use the 
+\href{https://github.com/semcneil/PCA95x5}{PCA95x5 library written by Seth McNeill}, 
+not the one in the Arduino library manager. An example of how to do this
+is shown in Listing \ref{lst:sht31reset}.
+
+\begin{lstlisting}[caption={This listing shows how to reset the SHT31.},
+label={lst:sht31reset},language=C++]
+Wire.begin();
+muxU31.attach(Wire, 0x20);
+muxU31.polarity(PCA95x5::Polarity::ORIGINAL_ALL);
+muxU31.direction(0x1CFF);  // 1 is input, see schematic to get upper and lower bytes
+muxU31.write(PCA95x5::Port::P08, PCA95x5::Level::L);  // disable SHT31
+delay(100);
+muxU31.write(PCA95x5::Port::P08, PCA95x5::Level::H);  // enable SHT31
+delay(100);
+
+Serial.println("SHT31 test");
+if (! sht31.begin(0x44)) {   // Set to 0x45 for alternate i2c addr
+    Serial.println("Couldn't find SHT31");
+    while (1) delay(1);
+}
+\end{lstlisting}
+
 \subsection{QMC5883L Compass}
 Use the library by MRPrograms for the QMC5883L compass. The azimuth example 
 should provide what you need to make it go.
@@ -49,6 +73,7 @@ should provide what you need to make it go.
 \subsection{LSM6DSOX IMU}
 Install the Arduino library for the LSM6DSOX IMU. Your program will need 
 to use a combination of the SimpleAccelerometer and SimpleGyroscope examples.
+NOTE: This library returns acceleration in g's not $m/s^2$.
 
 \section{Main Requirements}
 Write a sketch with the following functionality:
@@ -73,7 +98,7 @@ Turn in the following:
             for the output of the \lstinline$getIDs$ sketch. 
 \end{enumerate}
 
-\section{Resources}\label{sec:datacollectionsresources}
+\section{Resources}\label{sec:moresensorsresources}
 \begin{enumerate}
     \item The \href{https://cdn-shop.adafruit.com/datasheets/DS18B20.pdf}{DS18B20 temperature sensor datasheet}
     \item The \href{https://sensirion.com/products/catalog/SHT31-DIS-B/}{SHT31 temperature and humidity sensor datasheet}
