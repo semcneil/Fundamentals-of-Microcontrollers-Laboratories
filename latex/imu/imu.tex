@@ -1,0 +1,70 @@
+\chapter{IMU}
+\chaplabel{imu}
+
+\section{Purpose}
+The goal of this lab is to learn to use the IMU data and the SD card.
+
+\subsection{IMU Angle Measurement\label{subsec:imuangle}}
+The \href{https://semcneil.github.io/Fundamentals-of-Microcontrollers-Manual/Fundamentals-of-Microcontrollers.pdf}{user manual} 
+has the equations for calculating the current angle of the IMU on one axis
+using a complementary filter to combine data from the gyroscope and the accelerometers. The 
+equation is copied here as Equation \ref{eq:anglefused}. 
+
+\begin{equation}
+    \label{eq:anglefused}
+    \theta_{mixed}[t] = \alpha \left(\theta_{mixed}[t-1] + \omega_{gyro}\Delta t \right) + (1-\alpha)\atan2(a_x,a_z)
+\end{equation}
+
+\section{Main Requirements}
+Write two sketches with the following functionality:
+
+\subsection{IMU Screen Control}
+Use the angle measurement to move a character on the screen as described in the Procedure section.
+
+\subsection{Plotting IMU Data}
+Save the IMU data as specified in the Procedure to the SD card, then plot the saved data in Matlab 
+or your other favorite plotting program.
+
+\section{Procedure}
+It is best to follow this outline to finish this lab most efficiently.
+\begin{enumerate}
+    \item Start by making sure the \lstinline@IMU-CompFilterEx.ino@ example on Canvas works as it should for you.
+    \item Make it so that the angle controls the movement of a character on the screen. You can use the ideas 
+            from the programs you and your partner made for \hyperref[chap:displays]{Lab \ref*{chap:displays}}.
+    \begin{enumerate}
+        \item -180 degrees puts the symbol all the way to the right
+        \item 0 puts the symbol in the middle of the screen
+        \item +180 degrees puts the symbol all the way to the left
+    \end{enumerate}
+    \item As the second part of the lab, load the example named \lstinline@SDReadWrite@ 
+    \item Run it to make sure it works as advertised.
+    \item Change it to log \lstinline@t@ (from curTime), \lstinline@ax@, \lstinline@az@, 
+            \lstinline@theta_g@, \lstinline@theta_a@, and \lstinline@theta@ to the SD card 
+    \item Notice what \lstinline@dt@ is now.
+    \item Make of plot of the data in Matlab, Python, or your other favorite program for making good plots.
+\end{enumerate}
+
+\section{Extra Credit: 2~pts}
+After you have completed all the lab requirements, make it so that the character on the screen moves
+up and down as well as left and right based on the other axis of the PCB rotation.
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item A video of your board fulfilling the requirements in the Procedure section 
+            that includes both of your faces and you saying your names.
+    \item A PDF of your sketch.
+    \item .ino versions of your sketch.
+    \item The script/file you used to plot the data.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
+
+\section{Resources}\label{sec:imuresources}
+\begin{enumerate}
+    \item The \href{https://www.st.com/resource/en/datasheet/lsm6dsox.pdf}{LSM6DSOX IMU datasheet}
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+
