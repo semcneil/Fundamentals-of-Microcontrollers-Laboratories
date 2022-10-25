@@ -10,15 +10,18 @@ servo motors.
 Using an example sketch for the distance sensor, create a calibration curve for the distance 
 sensor out to it's maximum sensing distance using the lid of the shoebox as a target. The 
 calibration curve should use at least 5 points and have the readout (0-765ish) on the x-axis
-and actual, measured distance on the y-axis.
+and actual, measured distance on the y-axis. Use the Pololu library for the VL6180 sensor 
+and set SCALING to 3.
 
 \subsection{DC Motors}
 Write a sketch that drives your robot forward until the distance sensor senses something 
-(you choose a reasonable threshold), and then turns to avoid it and continues on.
+(you choose a reasonable threshold), and then turns to avoid it and continues on. Remember
+that to drive the motors at different speeds, you can just use \lstinline@analogWrite@. 
 
 \subsection{Servo}
 Write a sketch where the distance is measured every 10~degrees of servo movement. Plot the
-data on the robot's TFT display.
+data on the robot's TFT display. The \lstinline@Servo@ library is already installed and 
+not far down in the Examples. Look at the Sweep example to get started.
 
 % \section{Procedure}
 % It is best to follow this outline to finish this lab most efficiently.
