@@ -1,0 +1,49 @@
+\chapter{Distance, Motor, Servo}
+\chaplabel{distMotorServo}
+
+\section{Purpose}
+The goal of this lab is to learn the distance sensor, driving DC motors, and driving 
+servo motors.
+
+\section{Main Requirements}
+\subsection{Distance Calibration}
+Using an example sketch for the distance sensor, create a calibration curve for the distance 
+sensor out to it's maximum sensing distance using the lid of the shoebox as a target. The 
+calibration curve should use at least 5 points and have the readout (0-765ish) on the x-axis
+and actual, measured distance on the y-axis.
+
+\subsection{DC Motors}
+Write a sketch that drives your robot forward until the distance sensor senses something 
+(you choose a reasonable threshold), and then turns to avoid it and continues on.
+
+\subsection{Servo}
+Write a sketch where the distance is measured every 10~degrees of servo movement. Plot the
+data on the robot's TFT display.
+
+% \section{Procedure}
+% It is best to follow this outline to finish this lab most efficiently.
+% \begin{enumerate}
+%     \item 
+% \end{enumerate}
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item A video of your board fulfilling the requirements in the Procedure section 
+            that includes both of your faces and you saying your names.
+    \item A PDF of your sketch.
+    \item .ino versions of your sketch.
+    \item The script/file you used to plot the data.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
+
+\section{Resources}\label{sec:distmotorservoresources}
+\begin{enumerate}
+    \item \href{https://www.st.com/resource/en/datasheet/vl6180.pdf}{VL6180 Distance sensor}
+    \item \href{https://datasheet.lcsc.com/lcsc/2001060933_TMI-TMI8837_C478955.pdf}{TMI8837 Motor controller}
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+
