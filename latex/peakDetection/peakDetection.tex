@@ -1,0 +1,75 @@
+\chapter{Peak Detection}
+\chaplabel{peakDetection}
+
+\section{Purpose}
+The goal of this lab is to experiment with extrema detection by creating a sketch
+that has the following two parts:
+\begin{enumerate}
+    \item Detect peaks/valleys in data 
+    \item Do something when extrema are detected
+\end{enumerate}
+
+%\section{Main Requirements}
+
+
+\section{Procedure}
+
+\begin{enumerate}
+    \item Install the PeakDetection library from:\\
+          \href{https://github.com/semcneil/AnitracksPeakDetection}{https://github.com/semcneil/AnitracksPeakDetection}
+    \item The example uses input from \lstinline@A0@, which is attached to SW1 on your board. 
+            This should work for initial testing that the code runs.
+    \item There is an example posted on Canvas that uses the potentiometer on your board, download
+            and make sure this example runs too.
+    \item Choose which sensor you plan to use (not SW1 or the potentiometer)
+    \item Choose how you want the board to react to positive and negative extrema 
+    \item Implement your choices of sensor and reactions
+    \item Complete what is required to turn in
+\end{enumerate}
+
+\subsection{Possible Sensors}
+\begin{enumerate}
+    \item IMU (accelerometer and/or gyroscope)
+    \begin{enumerate}
+        \item React to waving board
+        \item React to tipping board 
+        \item React to impacts
+    \end{enumerate}
+    \item Proximity
+    \item Light
+    \item Temperature
+    \item Humidity
+    \item Compass
+\end{enumerate}
+
+\subsection{Example Reactions}
+You can probably come up with more ideas for reactions.
+\begin{enumerate}
+    \item Run buzzer with different \lstinline@tone@s 
+    \item Move servo 
+    \item Change motor speed/direction
+    \item Change NeoPixels
+    \item Change LED display
+    \item Display relevant data on the TFT display
+\end{enumerate}
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item A video of your board fulfilling the requirements in the Procedure section 
+            that includes both of your faces and you saying your names.
+    \item A PDF of your sketch.
+    \item .ino versions of your sketch.
+    \item The script/file you used to plot the data.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
+
+\section{Resources}\label{sec:distmotorservoresources}
+\begin{enumerate}
+    \item \href{https://stackoverflow.com/a/22640362}{StackOverflow post about this algorithm}
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+
