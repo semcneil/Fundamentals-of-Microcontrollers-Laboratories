@@ -1,6 +1,6 @@
 chapters = intro/intro.tex arduinoStart/arduinoStart.tex MuxLed/MuxLed.tex ButtonsSerial/ButtonsSerial.tex
 chapters2 = displays/displays.tex dataCollection/dataCollection.tex moreSensors/moreSensors.tex
-chapters3 = imu/imu.tex distMotorServo/distMotorServo.tex
+chapters3 = imu/imu.tex distMotorServo/distMotorServo.tex peakDetection/peakDetection.tex
 
 manual.pdf : manual.tex $(chapters) $(chapters2) $(chapters3)
 	latexmk -pdf manual
