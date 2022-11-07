@@ -1,0 +1,94 @@
+\chapter{Machine Learning}
+\chaplabel{machineLearning}
+
+\section{Purpose}
+The Arduino Nano Connect RP2040 has the LSM6DSOX IMU made by ST Microelectronics. It has 
+a Machine Learning Core inside. It also has some preset systems inside for detecting 
+the following:
+\begin{enumerate}
+    \item 6D orientation (up, down, left, right, front, back)
+    \item Free fall detection 
+    \item Pedometer (counting steps)
+    \item Tap detection, both single and double tap 
+    \item Tilt detection (for orienting screens as users rotate the device)
+    \item Wake up detection to let the device (microcontroller) know the device has moved
+\end{enumerate}
+Today's lab will run each of the built-in systems plus a pretrained ML model.
+
+\section{Laboratory}
+\subsection{Download Examples}
+There is a zip file on Canvas named LSM6DSOX\_Examples.zip. Download and extract the zip 
+file. Move the resulting folder into your sketch directory (usually named arduino or Arduino 
+inside your Documents folder). Now try opening one of the examples from within the Arduino IDE.
+If you can find it in your File $\rightarrow$ Sketchbook menu, you have put them in the right
+place.
+
+\subsection{Install Library}
+Install the STM32duino\_LSM6DSOX library in the Arduino IDE since these examples rely on 
+it for the interface to the IMU.
+
+\subsection{Running Examples}
+Run each of the following examples noting that the outputs will all be via the serial port:
+
+\subsubsection{6D Orientation}
+Open the example named LSM6DSOX\_6DOrientation. Compile and upload it to the board. When it
+runs, it should output a drawing indicating the orientation as you rotate the board.
+
+\subsubsection{Free Fall Detection}
+Don't drop or throw the board! Open the example named LSM6DSOX\_FreeFallDetection. Compile 
+and upload it to your board. When it is running, raise and lower the board while holding it 
+and it should send an output when it thinks it is in free fall. 
+
+\subsubsection{Pedometer}
+Open the example named LSM6DSOX\_Pedometer. Compile and upload it to the board. Once it is 
+running it should print out the number of steps periodically. Shake the board up and down 
+to imitate walking and it should increment the counter.
+
+\subsubsection{Tap Detection}
+Open the example named LSM6DSOX\_TapDetect. Compile and upload it to the board. Once it is 
+running try tapping the side of the board/module (not front, back, or top). The serial should 
+output single tap and double tap as it thinks it is tapped.
+
+\subsubsection{Tilt Detection}
+Open the example named LSM6DSOX\_TiltDetection. Compile and upload it to the board. Once it is 
+running try tilting the board after letting it sit in one orientation for a bit. It should 
+trigger a serial output when you move the board.
+
+\subsubsection{Wake Up Detection}
+Open the example named LSM6DSOX\_WakeUpDetection. Compile and upload it to the board. Once it is 
+running try moving the board after letting it sit still for a bit. It should trigger a serial 
+output when you move the board.
+
+\subsubsection{Machine Learning Example}
+Open the example named LSM6DSOX\_MLC. Compile and upload it to the board. Once it is 
+running try moving the board to simulate walking, running, biking, driving, unknown, and 
+staying stationary. Walking and jogging are the easiest to get with vertical motion (Z-axis). 
+Biking seems to be lateral motion (X- or Y-axis). I have seen driving once but don't remember 
+how I got it. I have never seen unknown.
+
+\subsection{Using the Examples}
+Take one or more of the examples and do something with them. It could be as simple as 
+adding sound or screen output to the example(s) or something more.
+
+\medskip
+
+\noindent Have fun!
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item Have either the TA or the instructor sign-off on your lab
+    \item A PDF of your sketch.
+    \item .ino versions of your sketch.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
+
+\section{Resources}%\label{sec:distmotorservoresources}
+\begin{enumerate}
+    \item \href{https://www.st.com/resource/en/datasheet/lsm6dsox.pdf}{LSM6DSOX Datasheet}
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+
