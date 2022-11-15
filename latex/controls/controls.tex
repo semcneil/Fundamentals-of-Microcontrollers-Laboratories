@@ -1,0 +1,86 @@
+\chapter{Controls}
+\chaplabel{controls}
+
+\section{Purpose}
+The goal of this lab is to play with PID control to get a feel for how it 
+works on a real system.
+
+\section{Laboratory}
+\subsection{Getting started}
+Example code is posted on Canvas as \lstinline@pid_dist_v0.5.ino@. Download and 
+try running it. After pressing the right button it should try to maintain a 
+distance from an object in front of the robot. The NeoPixels will be red when it 
+is in PID mode, and green when it is in HALT mode. Turning the potentiometer
+changes the target distance. In order to have the serial port work at the same 
+time as the motors run do the following:
+\begin{enumerate}
+    \item Make sure both motor jumpers are set to BAT 
+    \item Plug in the serial port 
+    \item Turn on the battery switch.
+\end{enumerate}
+
+Make sure this code works as expected. 
+
+\subsection{Proportional Control}
+Set the gain for the integral (KI) and derivative (KD) terms to zero. 
+Try different values for the proportional control. Can you turn proportional 
+control into bang-bang control? How well does it work?
+
+\subsection{Integral Control}
+Set the gain for proportional (KP) and derivative (KD) control to zero. 
+Try different values for integral control. How well does it run? Can you see 
+the windup? What happens for large values of KI? What happens for small values of 
+KI?
+
+\subsection{Derivative Control}
+Set the gain for proportional (KP) and integral (KI) control to zero.
+Try different values for KD. What happens with large values? How about 
+for small values?
+
+\subsection{PID Calibration}
+Based on the tests you have done so far. Try to find gain values for the 
+full PID controller that work better than the defaults in the original file.
+How can you tell if your gains are better than the original ones?
+
+\subsection{IMU PID Control}
+You have been supplied with a board to use as a ramp. Copy the PID file to 
+a new one with IMU in the title. Change it to try to level itself by 
+backing up the ramp. You will need to use your code for measuring angles 
+from a previous lab.
+
+Some other changes that need to be made:
+\begin{enumerate}
+    \item The distance PID controller is based on \lstinline@int@ values.
+            The angle is a float, so the PID function and values need to be 
+            updated accordingly.
+    \item The error also needs to be changed to a float.
+    \item Depending on the angle, the robot may not be able to get onto the
+            ramp so you may need to start it on the ramp. Tip the ramp up
+            and down to provide perturbances to the system.
+    \item The axes that the code measures around need to be changed to 
+            measure the front-to-back angle rather than the side-to-side 
+            angle.
+\end{enumerate}
+
+Be sure to turn off the battery switch prior to putting the robot away.
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item Have either the TA or the instructor sign-off on your lab
+    \item A short writeup with the answers to the questions in the distance PID section
+    \item A PDF of your sketch.
+    \item .ino versions of your sketch.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
+
+\section{Resources}%\label{sec:distmotorservoresources}
+\begin{enumerate}
+    \item \href{https://github.com/stm32duino/LSM6DSOX/blob/main/src/LSM6DSOXSensor.h}{LSM6DSOX Library Header}
+    \item \href{https://www.st.com/resource/en/datasheet/lsm6dsox.pdf}{LSM6DSOX Datasheet}
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+
