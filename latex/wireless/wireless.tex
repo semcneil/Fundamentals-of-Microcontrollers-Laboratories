@@ -2,18 +2,23 @@
 \chaplabel{wireless}
 
 \section{Purpose}
-The goal of this lab is to play with WiFi, Bluetooth, and time.
+The goal of this lab is to play with WiFi, Bluetooth, and time. Some of the example
+sketches are in a .zip file on Canvas. Download the zip file and unzip it into the 
+Arduino directory (typically Documents/Arduino). You should see directories with 
+your other sketches inside the Arduino folder.
 
 \section{Laboratory}
 \subsection{NFC}
+The ST25DV library is the one in the Arduino Library Manages written by stm32duino.
 Use the example to make sure that your NFC chip is updated with the latest
-IP address for your module. Test this and as with each other section, 
+IP address for your module (this requires adding WiFi connection to your sketch), 
+and one of your email addresses. Test this and as with each other section, 
 demonstrate this to your instructor/TA.
 
 \subsection{UDP Between Boards}
-Run the examples \lstinline@@ and \lstinline@@, one on each of 2 boards. Once
-running, the right button on the \lstinline@@ board should turn the LED on the 
-other board on and off.
+Run the examples \lstinline@WiFiUdpSend@ and \lstinline@WiFiUdpReceiveSend@, one 
+on each of 2 boards. Once running, the right button on the \lstinline@@ board 
+should turn the LED on the other board on and off.
 
 Modify this to do something else (buzzer, NeoPixels, motor, etc.). Demo for the 
 instructor/TA.
