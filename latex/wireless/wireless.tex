@@ -41,7 +41,7 @@ the other board on and off.
 Modify this to do something else (buzzer, NeoPixels, motor, etc.). Demo for the 
 instructor/TA.
 
-\subsection{Bluetooth Control of the Robot}
+\subsection{Bluetooth Low Energy}
 Be sure to generate your own UUIDs for your particular project. If you use
 the UUIDs from the examples, you will not be able to tell if you are connecting
 to your board or someone else's who is using the same UUIDs. You can use the 
@@ -50,11 +50,52 @@ Be sure to set the device (\lstinline@BLE.setDeviceName@) and local names
 (\lstinline@BLE.setLocalName@) on all boards to something unique to 
 your group so that you can find it when scanning.
 
+\subsubsection{Peripheral Setup}
+\begin{enumerate}
+    \item Include Arduino's BLE library \\
+        \lstinline@#include <ArduinoBLE.h>@ 
+    \item Create a BLEService. This is container for characteristics. You can
+            have multiple services and characteristics per service.\\
+        \lstinline@BLEService ledService(String UUID);@
+    \item Create a variable for each characteristic. Characteristics have properties. 
+            The most used properties are:
+        \begin{enumerate}
+            \item BLERead - This allows a connected device to read the value of this variable
+            \item BLEWrite - This allows a connected device to change the value of the variable
+            \item BLENotify -  This allows a connected device to be notified if the value changes
+        \end{enumerate}
+        \lstinline@BLEByteCharacteristic LEDCharacteristic(String UUID, BLERead | BLEWrite);@ \\
+        \lstinline@BLEByteCharacteristic buttonCharacteristic(String UUID, BLERead | BLENotify);@
+    \item The next setup is done in the \lstinline@setup()@ function
+    \item Start the BLE module \\
+        \lstinline@BLE.begin()@ 
+    \item Set the device name. This is the externally advertised name \\
+        \lstinline@BLE.setDeviceName("BUTTON_LED");@ 
+    \item Set the local name. This can be checked by a device once connected \\
+        \lstinline@BLE.setLocalName("BUTTON_LED_MCNEILL");@ 
+    \item Set the service as advertised \\
+        \lstinline@BLE.setAdvertisedService(ledService);@
+    \item Add the characteristics to the service \\
+        \lstinline@ledService.addCharacteristic(LEDCharacteristic);@
+    \item Add the service to the BLE object \\
+        \lstinline@BLE.addService(ledService);@
+    \item Set initial values for each characteristic \\
+        \lstinline@LEDCharacteristic.writeValue(0);@
+    \item Finish by starting your BLE advertising its existence \\
+        \lstinline@BLE.advertise();@
+    \item In the \lstinline@loop()@ my preferred method is to create central device
+            and check to see if a device has connected. Once it has, update the 
+            values of the output characteristics and check if the writeable 
+            characteristics have been written to.
+\end{enumerate}
+\subsubsection{Central Setup}
+
 \subsubsection{Phone to Robot Interface}
-Use the example code (\lstinline@BLE_LED) (being sure to change UUIDs, device name and local name)
+Use the example code (\lstinline@BLE_ButtonLED@) (being sure to change UUIDs, device name and local name)
 to turn an LED on and off on the robot from your phone. Change the code to 
 do something else (buzzer, NeoPixel, motor (carefully), servo) when you change 
-the value via the Bluetooth interface. 
+the value via the Bluetooth interface. Also, show the button on the board changing
+the value read on your phone using the Notify property.
 
 % \subsubsection{Inter-Robot Interface}
 % For this part of the lab you will need to work with another group. Using the example 
