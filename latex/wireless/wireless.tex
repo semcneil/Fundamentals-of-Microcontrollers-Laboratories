@@ -8,6 +8,18 @@ Arduino directory (typically Documents/Arduino). You should see directories with
 your other sketches inside the Arduino folder.
 
 \section{Laboratory}
+\subsection{Preparation}
+Before you start this lab, be sure you have updated the following:
+\begin{enumerate}
+    \item The Arduino IDE to the latest in the 1.x series (not the 2.x IDE)
+    \item WiFiNINA module firmware
+    \item The main libraries used for this lab 
+    \begin{enumerate}
+        \item WiFiNINA
+        \item ArduinoBLE
+    \end{enumerate}
+\end{enumerate}
+
 \subsection{NFC}
 The ST25DV library is the one in the Arduino Library Manages written by stm32duino.
 Use the example to make sure that your NFC chip is updated with the latest
@@ -15,10 +27,16 @@ IP address for your module (this requires adding WiFi connection to your sketch)
 and one of your email addresses. Test this and as with each other section, 
 demonstrate this to your instructor/TA.
 
+To convert the IPAddress to a \lstinline@String@ try the following:\\
+\lstinline@IPAddress ip = WiFi.localIP();@\\
+\lstinline@String ipString = String(ip[0]) + "." + ip[1] + "." + ip[2] + "." + ip[3];@
+
 \subsection{UDP Between Boards}
 Run the examples \lstinline@WiFiUdpSend@ and \lstinline@WiFiUdpReceiveSend@, one 
-on each of 2 boards. Once running, the right button on the \lstinline@@ board 
-should turn the LED on the other board on and off.
+on each of 2 boards. Be sure to update \lstinline@remoteIp@ in the 
+\lstinline@WiFiUdpSend@ sketch to be the IP address of the other board. Once 
+running, the right button on the \lstinline@@ board should turn the LED on 
+the other board on and off.
 
 Modify this to do something else (buzzer, NeoPixels, motor, etc.). Demo for the 
 instructor/TA.
@@ -33,14 +51,14 @@ Be sure to set the device (\lstinline@BLE.setDeviceName@) and local names
 your group so that you can find it when scanning.
 
 \subsubsection{Phone to Robot Interface}
-Use the example code (being sure to change UUID, device name and local name)
+Use the example code (\lstinline@BLE_LED) (being sure to change UUIDs, device name and local name)
 to turn an LED on and off on the robot from your phone. Change the code to 
 do something else (buzzer, NeoPixel, motor (carefully), servo) when you change 
 the value via the Bluetooth interface. 
 
-\subsubsection{Inter-Robot Interface}
-For this part of the lab you will need to work with another group. Using the example 
-of a peripheral and central, use one robot to control something on the other robot.
+% \subsubsection{Inter-Robot Interface}
+% For this part of the lab you will need to work with another group. Using the example 
+% of a peripheral and central, use one robot to control something on the other robot.
 
 \subsection{Clock}
 Using the example for setting the RTC for the SD card, write a 
