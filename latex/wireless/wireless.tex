@@ -89,6 +89,51 @@ your group so that you can find it when scanning.
             characteristics have been written to.
 \end{enumerate}
 \subsubsection{Central Setup}
+\begin{enumerate}
+    \item Scan for a device, typically by service UUID. \\
+        \lstinline@BLE.scanForUuid(BLE_UUID_PERIPHERAL);@ 
+    \item Create a peripheral object \\
+        \lstinline@BLEDevice peripheral = BLE.available();@ 
+    \item If the peripheral has been discovered, check its local name  \\
+        \lstinline@if (peripheral.localName() != "BUTTON_LED")@ 
+    \item Stop scanning \\
+        \lstinline@BLE.stopScan();@ 
+    \item Connect to the peripheral \\
+        \lstinline@peripheral.connect()@ 
+    \item Read the peripheral's attributes \\
+        \lstinline@peripheral.discoverAttributes()@ 
+    \item Retrieve each characteristic and check to make sure each has the 
+            attributes (Read/Write/Notify) expected
+        \begin{lstlisting}
+if (!buttonCharacteristic) {
+    Serial.println("Peripheral does not have button characteristic!");
+    peripheral.disconnect();
+    return;
+} else if (!buttonCharacteristic.canRead()) {
+    Serial.println("Peripheral does not have a readable button characteristic!");
+    peripheral.disconnect();
+    return;
+} else if (!buttonCharacteristic.canSubscribe()) {
+    Serial.println("Peripheral does not allow button subscriptions (notify)");
+} else if(!buttonCharacteristic.subscribe()) {
+    Serial.println("Subscription failed!");
+} else {
+    Serial.println("Connected to button characteristic");
+}
+        \end{lstlisting}
+    \item Read/write the peripheral's characteristics as desired
+        \begin{lstlisting}
+if(buttonCharacteristic && buttonCharacteristic.canRead() && buttonCharacteristic.valueUpdated()) {
+    byte peripheralButtonState;
+    buttonCharacteristic.readValue(peripheralButtonState);
+    if(!peripheralButtonState) {
+        digitalWrite(ledPin, HIGH);
+    } else {
+        digitalWrite(ledPin, LOW);
+    }
+}          
+        \end{lstlisting}
+\end{enumerate}
 
 \subsubsection{Phone to Robot Interface}
 Use the example code (\lstinline@BLE_ButtonLED@) (being sure to change UUIDs, device name and local name)
@@ -97,9 +142,10 @@ do something else (buzzer, NeoPixel, motor (carefully), servo) when you change
 the value via the Bluetooth interface. Also, show the button on the board changing
 the value read on your phone using the Notify property.
 
-% \subsubsection{Inter-Robot Interface}
-% For this part of the lab you will need to work with another group. Using the example 
-% of a peripheral and central, use one robot to control something on the other robot.
+\subsubsection{Inter-Robot Interface}
+For this part of the lab you will need to work with another group. Using the example 
+of a peripheral (\lstinline@BLE-ButtonLED.ino@) and central (\lstinline@BLE-LED-Central.ino@)
+, use one robot to control something on the other robot.
 
 \subsection{Clock}
 Using the example for setting the RTC for the SD card, write a 
