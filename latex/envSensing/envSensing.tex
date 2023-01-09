@@ -1,0 +1,161 @@
+\chapter{Environmental Sensing}
+\chaplabel{envSensing}
+
+\section{Purpose}
+The goal of this lab is to learn to collect data with an ADC and other sensors.
+
+\section{Procedure}
+\subsection{Main Requirements}
+Write a sketch with the following functionality:
+
+Collect the following data and display it once every 5 seconds via serial and on the display with the 
+appropriate labels and units if you can make them fit.
+\begin{enumerate}
+	\item The output from \lstinline@millis()@ (ms)
+	\item Both light intensities as a number between 0 and 1023 (unitless)
+	\item Potentiometer value as a voltage between 0 and 3.3~V
+	\item Temperature in Fahrenheit from TEMP0 (U27 attached to input 0 of U37)
+    \item Get 1-Wire (DS18B20) sensors reporting temperatures via Serial
+    \item Display 1-Wire temperatures on display
+    \item Get SHT31 reporting temperature and humidity via Serial
+    \item Add SHT31 data to display 
+    \item Get compass (QMC5883L) reporting azimuth via Serial
+    \item Add azimuth data to the display
+    \item Get IMU (LSM6DSOX) reporting accelerations and gyroscope data via Serial 
+    \item Add accelerometer and gyroscope data to display
+\end{enumerate}
+
+The light sensors, potentiometer, and temperature sensor are connected to ADS7142 
+analog-to-digital (ADC) sensors. There is a library in the normal library adding 
+method. Look for the library for the ADS7142 by Seth McNeill. After you install it,
+there should now be examples under Anitracks ADS7142. Follow the read2Ch example 
+combined with your previous work to complete this lab.
+
+\subsection{Suggestions}
+Use a \href{https://www.arduino.cc/reference/en/language/variables/data-types/stringobject/}{String} 
+object to accumulate your display string and then call \lstinline@display.println(yourString)@ 
+to display it. Note a few things:
+\begin{enumerate}
+	\item The String type starts with a capital S.
+	\item You can add to the String object using \lstinline@+=@ or just \lstinline@+@, 
+		but with only the plus operator, all arguments have to be of the same type. 
+	\item The String object also allows you to limit the number of decimal places for \lstinline@float@ types.
+            \lstinline@String(tF,1)@ displays tF to 1 decimal place.
+\end{enumerate}
+An example is shown in Listing \ref{lst:dispstr}.
+\begin{lstlisting}[caption={This is an example of using a String 
+		object to display text and float variables. The floats are 
+		limited to 1 decimal place such that 7.123 would be displayed as 7.1.},
+		label={lst:dispstr},language=C++]
+	String dispStr;
+	dispStr = "T(F): ";
+	dispStr += String(tF,1);
+	dispStr += "\n";
+	// Control the display  
+	tft.fillScreen(ST77XX_BLACK);  // clear display
+	tft.setTextColor(ST77XX_YELLOW);  // set text color
+	tft.setTextSize(1);  // Normal 1:1 pixel scale
+	tft.setCursor(0,0);  // Start at top-left corner
+	tft.println(dispStr);
+\end{lstlisting}
+However, if you want to have different portions of the text in different colors you will
+need to call \lstinline@tft.setTextColor@ between each \lstinline@tft.println@.
+
+\subsection{1-Wire Sensors}
+As mentioned in class, the only library I have found to work with the Nano Connect 
+RP2040 is the \href{https://github.com/pstolarz/OneWireNg}{OneWireNg} library. 
+Unfortunately, the library examples are very complex. There is a simpler solution by 
+combining the examples from the OneWire library with the capabilities of the OneWireNg 
+library. It has to be done carefully though. Here is how to do it:
+\begin{enumerate}
+    \item In the Arduino IDE install both the OneWire and OneWireNg libraries
+    \item Open the OneWire example named \lstinline@DS18x20_Temperature@ 
+    \item Add this line above the \lstinline@#include <OneWire.h>@ line:\\
+            \lstinline@#include "OneWireNg_CurrentPlatform.h"@ 
+    \item This example should now compile and run just fine 
+\end{enumerate}
+
+\subsubsection{NOTE}
+This example reads the results from one (1) sensor per pass through the 
+\lstinline@loop()@ function. For your program, you will want to collect 
+all three sensors' data in a single pass through the \lstinline@loop()@ 
+function.
+
+\subsection{SHT31 Temperature and Humidity Sensor}
+Use Adafruit's SHT31 library. Base your code on their example. Be sure 
+to make sure that the heater is off. For this class, you do not need to 
+turn on the heater.
+
+Also, the SHT31 needs to be reset each time the program starts. It's 
+reset pin is connected to a PCA9535. Don't forget to use the 
+\href{https://github.com/semcneil/PCA95x5}{PCA95x5 library written by Seth McNeill}, 
+not the one in the Arduino library manager. An example of how to do this
+is shown in Listing \ref{lst:sht31reset}.
+
+\begin{lstlisting}[caption={This listing shows how to reset the SHT31.},
+label={lst:sht31reset},language=C++]
+Wire.begin();
+muxU31.attach(Wire, 0x20);
+muxU31.polarity(PCA95x5::Polarity::ORIGINAL_ALL);
+muxU31.direction(0x1CFF);  // 1 is input, see schematic to get upper and lower bytes
+muxU31.write(PCA95x5::Port::P08, PCA95x5::Level::L);  // disable SHT31
+delay(100);
+muxU31.write(PCA95x5::Port::P08, PCA95x5::Level::H);  // enable SHT31
+delay(100);
+
+Serial.println("SHT31 test");
+if (! sht31.begin(0x44)) {   // Set to 0x45 for alternate i2c addr
+    Serial.println("Couldn't find SHT31");
+    while (1) delay(1);
+}
+\end{lstlisting}
+
+\subsection{QMC5883L Compass}
+Use the library by MRPrograms for the QMC5883L compass. The azimuth example 
+should provide what you need to make it go.
+
+\subsection{LSM6DSOX IMU}
+Install the Arduino library for the LSM6DSOX IMU. Your program will need 
+to use a combination of the SimpleAccelerometer and SimpleGyroscope examples.
+NOTE: This library returns acceleration in g's not $m/s^2$.
+
+\section{Main Requirements}
+Write a sketch with the following functionality:
+
+Collect the following data and display it once every 5 seconds via serial and on 
+the display with the appropriate labels and units if you can make them fit.
+\begin{enumerate}
+	\item The output from \lstinline@millis()@ (ms)
+	\item Both light intensities as a number between 0 and 1023 (unitless)
+	\item Potentiometer value as a voltage between 0 and 3.3~V
+	\item Temperature in Fahrenheit from TEMP0 (U27 attached to input 0 of U37)
+ 	\item The temperatures from all 3 1-Wire DS18B20 sensors (takes ~3 seconds for acquisition)
+	\item The temperature and humidity from the SHT31 sensor
+	\item The compass azimuth angle
+	\item The 3-axis accelerometer and gyroscope data (6 data points)
+\end{enumerate}
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item Have either the TA or the instructor sign-off on your lab
+    \item A PDF of your sketch.
+    \item .ino versions of your sketch.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
+
+\section{Resources}\label{sec:datacollectionsresources}
+\begin{enumerate}
+    \item \href{https://www.adafruit.com/product/4383}{Adafruit 1.14" 240x135 Color TFT Display + MicroSD Card Breakout - ST7789}
+    \item \href{https://www.arduino.cc/reference/en/libraries/adafruit-st7735-and-st7789-library/}{Adafruit ST7789 library}
+    \item \href{https://learn.adafruit.com/adafruit-gfx-graphics-library}{Adafruit GFX library}
+    \item The \href{https://cdn-shop.adafruit.com/datasheets/DS18B20.pdf}{DS18B20 temperature sensor datasheet}
+    \item The \href{https://sensirion.com/products/catalog/SHT31-DIS-B/}{SHT31 temperature and humidity sensor datasheet}
+    \item The \href{https://www.filipeflop.com/img/files/download/Datasheet-QMC5883L-1.0%20.pdf}{QMC5883L compass datasheet}
+    \item The \href{https://www.st.com/resource/en/datasheet/lsm6dsox.pdf}{LSM6DSOX IMU datasheet}    \item See the chapter in the \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} about displays
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+

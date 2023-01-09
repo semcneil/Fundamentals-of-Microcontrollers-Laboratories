@@ -1,5 +1,5 @@
 chapters = intro/intro.tex arduinoStart/arduinoStart.tex MuxLed/MuxLed.tex ButtonsSerial/ButtonsSerial.tex
-chapters2 = displays/displays.tex dataCollection/dataCollection.tex moreSensors/moreSensors.tex
+chapters2 = displays/displays.tex envSensing/envSensing.tex
 chapters3 = imu/imu.tex distMotorServo/distMotorServo.tex peakDetection/peakDetection.tex
 chapters4 = machineLearning/machineLearning.tex controls/controls.tex wireless/wireless.tex
 
