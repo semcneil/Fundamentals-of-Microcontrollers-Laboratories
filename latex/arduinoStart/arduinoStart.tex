@@ -12,6 +12,7 @@ This method may also work on your personal computers.
     \item On the search bar, type in Microsoft Store.
     \item Click on Microsoft Store
     \item In the store search, type arduino
+    \item If you have the option to choose between version 1.x and 2.x, use 1.x.
     \item Arduino IDE App should appear, click on it
     \item Click on Get
     \item You do not need to sign into Microsoft to make this install work even if prompted
@@ -30,7 +31,8 @@ This method may also work on your personal computers.
 \subsection{Personal Computer}
 \begin{enumerate}
 	\item Go to software download page: \href{https://www.arduino.cc/en/software}{https://www.arduino.cc/en/software}
-	\item Download the Windows ZIP file (not the first link or the app)
+	\item Scroll down to Legacy IDE (1.8.x)
+	\item Download the Windows ZIP file (not the first link or the app) for 1.8.19
 	\item Open the zip file and copy the folder inside (arduino-1.8.19 as of this writing) into your One Drive folder. This may take a while. If you are on your own computer, you can use any of the programs.
 	\item Once that transfer finishes, go into the folder and run arduino.exe. Windows will try to save you, but if you click More Info you can click Run Anyway.
 	\item Windows Defender Firewall will also complain. Uncheck the box that is checked and/or click Cancel.
@@ -62,7 +64,7 @@ This method may also work on your personal computers.
 	\end{enumerate}
 \end{enumerate}
 
-\subsubsection{Testing the Setup}
+\subsubsection{Compiling, Uploading, and Running}
 This section can be done on either (or both) computers. The results from one run (between both lab partners)
 is all that needs to be turned in.
 \begin{enumerate}
@@ -70,7 +72,7 @@ is all that needs to be turned in.
 	\item This will open another window with the Blink program.
 	\item Go to Tools$\rightarrow$Board$\rightarrow$Arduino Mbed OS Nano Boards and select the Arduino Nano RP2040 Connect
 	\item Go to Tools$\rightarrow$Port and select the COM that isn't COM1 (mine showed up as COM5)
-	\item Click the right arrow under the word edit in the menu to Uplaod the sketch to the Arduino board.
+	\item Click the right arrow under the word edit in the menu to Upload the sketch to the Arduino board.
 	\item It should say ``Compiling sketch..." in the lower left and show a progress bar on the lower right.
 	\item Then it should switch to Uploading... and finally Done Uploading.
 	\item An orange light near the USB port on your board should be blinking.
