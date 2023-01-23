@@ -27,7 +27,7 @@ PCA9535 I$^2$C Input/Output (IO) port chip to drive a 4-digit LED display.
     \item Save the zip file to your Downloads folder or somewhere else you can find it again
     \item In the Arduino IDE select Sketch $\rightarrow$ Include Library $\rightarrow$ Add .ZIP Library
     \item Select the zip file you downloaded earlier
-    \item Wait for the IDE to say "Library added to your libraries"
+    \item Wait for the IDE to say ``Library added to your libraries"
     \item Check that the library is indeed installed one of two ways:
     \begin{enumerate}
         \item Go to Sketch $\rightarrow$ Include Libraries and look for PCA95x5
@@ -43,7 +43,10 @@ date. This script displays an 8. in the first digit and zeros in the rest. Note 
 lines to make it so that there is not ghosting of numbers to the right of where they are displayed.
 
 \begin{enumerate}
-    \item Run the script in Listing \ref{lst:leddispstart} to make sure it runs
+    \item Run the script in Listing \ref{lst:leddispstart} to make sure it runs. Beware of copying
+            multiple lines from a PDF to the Arduino IDE since it often adds in unwanted characters. 
+            Also, underscores (\_) and some other symbols sometimes fail to transfer correctly. The 
+            is also available for download from the class Canvas site.
     \item Change the script so that it displays four consecutive numbers such as 1234. You can use
             any 4 consecutive, single digit numbers.
     \item Demonstrate your sketch working to a TA or instructor.
@@ -68,11 +71,10 @@ lines to make it so that there is not ghosting of numbers to the right of where 
      Serial.println("Starting...");
    
      // initialize object
-     Wire.begin();
-     LEDmux.attach(Wire, 0x21);
+     Wire.begin();  // this must be done before LEDmux.attach
+     LEDmux.attach(Wire, 0x21);  // 0x21 is the I2C address for the PCA9535 attached to the LEDs
      LEDmux.polarity(PCA95x5::Polarity::ORIGINAL_ALL);
-     uint16_t mux_direction = 0;
-     mux_direction = 0x0010;  // mostly outputs
+     uint16_t mux_direction = 0x0010;  // mostly outputs (0), setting to 1 designates input
      LEDmux.direction(mux_direction);
    
      Serial.println("Everything setup");
@@ -99,15 +101,16 @@ lines to make it so that there is not ghosting of numbers to the right of where 
     
 \subsection{Count}
 Make a new sketch, based off your first sketch (meaning copy and paste it into the new sketch).
-This new sketch should count up from 0 to 9 (or 0000 to 0009) incrementing once per second. 
+This new sketch should count up from 0 to 9 (or 0000 to 0009) incrementing once per second. Demonstrate
+this counting to a TA/instructor and get it signed off.
 
-\subsection{Extra credit}
-Have your counting system count higher than 9.
+\subsection{Extra credit: 2 pts}
+Have your counting system count using more than one digit (i.e. count to 99 if two digits).
 
 \section{Turn In}
 Turn in the following:
 \begin{enumerate}
-    \item A video of your board counting that includes both of your faces and you saying your names.
+    \item Make sure that you have been signed off for both consecutive numbers and counting.
     \item A PDF of your first sketch that displays 4 consecutive numbers.
     \item A PDF of your second sketch that counts.
     \item .ino versions of both sketches.
