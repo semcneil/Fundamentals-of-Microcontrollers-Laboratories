@@ -17,7 +17,12 @@ PCA9535 I$^2$C Input/Output (IO) port chip to drive a 4-digit LED display.
 \end{enumerate}
 
 \section{Procedure}
-\subsection{Add PCA95x5 library}
+\subsection{Add the PCA95x5 library}
+Normally libraries can be added by using the Arduino IDE library manager. However, this 
+library hasn't been included in it yet, so you will install it by hand. This is an 
+important skill to know since not all the software you will need to use is in the 
+normal library system.
+
 \begin{enumerate}
     \item Open the Arduino IDE 
     \item Open preferences
@@ -40,7 +45,19 @@ PCA9535 I$^2$C Input/Output (IO) port chip to drive a 4-digit LED display.
 An example script is shown in Listing \ref{lst:leddispstart}. Use this as a starting point for your
 code. Be sure to change the header information to include all lab partner names and the correct 
 date. This script displays an 8. in the first digit and zeros in the rest. Note the clearing
-lines to make it so that there is not ghosting of numbers to the right of where they are displayed.
+lines to make it so that there is not ghosting of numbers to the right of where they are displayed. 
+Remember that we are using the PCA9535 chip which requires the PCA95x5 library. When using a library 
+the following steps must be followed or else the microcontroller will probably crash or at least 
+the part you are trying to use will not work. Note the steps in Listing \ref{lst:leddispstart}.
+
+\begin{enumerate}
+    \item Include the library: \lstinline|#include <PCA95x5.h>|
+    \item Create an object: \lstinline|PCA9535 LEDmux;|
+    \item Initialize the object: usually a \lstinline|.begin()| method (PCA9535 requires more)
+    \item Use the object: \lstinline|LEDmux.write(0xFF0E);|
+\end{enumerate}
+
+Now to begin showing some numbers on the 7-segment display.
 
 \begin{enumerate}
     \item Run the script in Listing \ref{lst:leddispstart} to make sure it runs. Beware of copying
