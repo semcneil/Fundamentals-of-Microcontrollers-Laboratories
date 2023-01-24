@@ -69,7 +69,9 @@ Now to begin showing some numbers on the 7-segment display.
     \item Demonstrate your sketch working to a TA or instructor.
 \end{enumerate}
 
-\begin{lstlisting}[language=C++, caption={This listing is a starting point for driving the LED display. This sketch may also be available on Canvas.},label={lst:leddispstart}]
+\begin{lstlisting}[language=C++, caption={This listing is a starting point for driving the LED display. 
+    This sketch may also be available on Canvas. Beware of copying out of PDFs since some characters
+     (underscore for instance) come through garbled.},label={lst:leddispstart}]
     /* 20220907LEDsClass1.ino
     *  
     * Demo of LED display in class.
@@ -115,6 +117,10 @@ Now to begin showing some numbers on the 7-segment display.
      delay(delayTime); 
    }
 \end{lstlisting}
+Note the anti-ghosting lines in Listing \ref{lst:leddispstart}. This is because the two
+bytes on the PCA9535 do not change simultaneously. One will change before the other 
+giving a slight showing of the previous number before showing the new number. The fix 
+is to turn off all four segments before writing the new number.
     
 \subsection{Count}
 Make a new sketch, based off your first sketch (meaning copy and paste it into the new sketch).
