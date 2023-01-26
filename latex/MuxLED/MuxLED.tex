@@ -8,7 +8,7 @@ PCA9535 I$^2$C Input/Output (IO) port chip to drive a 4-digit LED display.
 
 \section{Resources}\label{sec:resources}
 \begin{enumerate}
-    \item \href{https://www.nxp.com/docs/en/data-sheet/PCA9535_PCA9535C.pdf}{PCA9535 datasheet}
+    \item \href{https://www.nxp.com/products/interfaces/ic-spi-i3c-interface-devices/general-purpose-i-o-gpio/16-bit-ic-bus-and-smbus-low-power-i-o-port-with-interrupt:PCA9535_PCA9535C}{PCA9535 datasheet}
     \item \href{https://datasheet.lcsc.com/lcsc/1810191633_SUNLIGHT-SLR0394FG3C5BD-3-5_C225905.pdf}{LED display datasheet}
     \item \href{https://github.com/semcneil/PCA95x5}{PCA9535 library} (McNeill version)
     \item PCB Schematic and Layout - see 
@@ -129,6 +129,21 @@ this counting to a TA/instructor and get it signed off.
 
 \subsection{Extra credit: 2 pts}
 Have your counting system count in increments of 1 using more than one digit (i.e. count to 99 if two digits).
+\subsection{Extra Credit Hints}
+\begin{enumerate}
+    \item Use the \lstinline|millis()| function to update count every second. The 
+            following \lstinline|if| statement shows an example of how to do this: \\
+            \lstinline|if(millis() - lastUpdate > updateInterval)|
+    \item I used an array for the segments required for each number something like \\
+            \lstinline|nums[] = {0xAB,0x1C,...}|  // values not correct
+    \item I also used an array to specify which digit is showing, something like \\
+            \lstinline|digs[[] = {0x12, 0x0E,...}| // values not correct
+    \item These can be combined since \lstinline|nums[ii]| is the upper byte and 
+            \lstinline|digs[jj]| is the lower byte of the number that needs to be 
+            written to the PCA9535. \lstinline|nums[ii]| needs to be shifted to be 
+            the upper byte using the \lstinline|<<| operator. For example: \\
+            \lstinline@(nums[ii] << 8) | digs[jj]@ 
+\end{enumerate}
 
 \section{Turn In}
 Turn in the following:
