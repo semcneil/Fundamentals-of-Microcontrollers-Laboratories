@@ -191,9 +191,9 @@ file, not the library from the standard Arduino library manager.
 
 \begin{enumerate}
     \item Include the PCA95x5 library
-    \item Create a variable of type PCA9535 named something like \lstinline@muxU31@ 
+    \item Create a global variable of type PCA9535 named something like \lstinline@muxU31@ 
             (for the chip listed as U31 on the schematic)
-    \item Initialize the variable/object:
+    \item Initialize the variable/object inside the \lstinline|setup()| function:
     \begin{enumerate}
         \item Start the wire library: \lstinline@Wire.begin()@
         \item Attach to the mux using the attach method and correct address: 
