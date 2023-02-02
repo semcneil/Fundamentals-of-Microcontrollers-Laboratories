@@ -307,6 +307,21 @@ Write a sketch with the following functionality:
     \item Make the NeoPixels do something.
 \end{enumerate}
 
+\section{Debugging}
+Here are some pointers to help if your program gives errors:
+\begin{enumerate}
+    \item Missing \lstinline|Wire.h|: Make sure you are including the PCA95x5 library
+    \item Upload just gives a series of dots and says upload failed.
+    \begin{enumerate}
+        \item Check to make sure the correct COM port is selected in Tools menu
+        \item Try pressing the reset button twice to put the RP2040 in upload mode 
+        \item If nothing works, bring your board to the professor/TA to have a hard reset performed
+    \end{enumerate}
+    \item ``Out of scope'' errors. Count and match curly brackets (\{\}) to make sure all
+                your code is inside \lstinline|setup()| or \lstinline|loop()|. The only code
+                that can be outside of a function is a variable declaration (e.g. \lstinline|int x|)
+\end{enumerate}
+
 \section{Turn In}
 Turn in the following:
 \begin{enumerate}
