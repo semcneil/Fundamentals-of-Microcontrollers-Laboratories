@@ -186,6 +186,9 @@ The v0.5 board has 4 buttons. SW1 is attached to A0 and can be read directly usi
 connected to the PCA9535 I2C to GPIO chip with an address of 0x20 and have to be 
 accessed using the PCA95x5 library. 
 
+Remember to install the McNeill version of the PCA95x5 library from a Github zip 
+file, not the library from the standard Arduino library manager.
+
 \begin{enumerate}
     \item Include the PCA95x5 library
     \item Create a variable of type PCA9535 named something like \lstinline@muxU31@ 
@@ -209,6 +212,19 @@ accessed using the PCA95x5 library.
 
 Note that switches SW1 and SW2 are are HIGH when not pressed and LOW 
 when pressed while FRONT\_SW and BACK\_SW are LOW when not pressed and HIGH when pressed.
+
+\begin{lstlisting}[language=C++, caption={The buttons attached to the PCA9535 can be accessed 
+    as shown in this code snippet.},label={lst:muxButtons}]
+    uint16_t muxVal = muxU31.read();
+    if(muxVal & 0x0001) {
+        // Do something with left button
+    }
+    if(muxVal & 0x0002) {
+        // Do something with another button
+    }
+\end{lstlisting}
+
+
 
 \subsection{Making Noise (buzzer)}
 The board for lab has a buzzer attached to pin D2. Arduino has a handy function called 
