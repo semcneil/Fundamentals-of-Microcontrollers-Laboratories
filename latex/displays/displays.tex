@@ -8,20 +8,21 @@ The goal of this lab is to learn to use the TFT display.
 \subsection{Main Requirements}
 Write a sketch with the following functionality:
 \begin{enumerate}
+    \item Display a custom message for 3~seconds indicating the start of the program when
+            your program starts 
     \item Choose a favorite character and have it move left 10~pixels for each press
             of the left button and right 10~pixels for each press of the right button.
     \begin{enumerate}
-        \item Choose the Y value to one that looks good to you
+        \item Choose the Y value to be one that looks good to you
         \item If 10~pixels seems to not be a good value feel free to change it, just note
-                that you changed the value.
+                that you changed the value
         \item This builds on last week's making all the buttons function
-        \item The specifications do require software debouncing of the buttons
+        \item Debounce the buttons so that each press only moves the character once
         \item Add logic so that the character doesn't go far off the edge of the screen
                 on either side.
     \end{enumerate}
-    \item Display a custom message for 3~seconds indicating the start of the program when
-            your program starts 
-    \item Draw some of the drawing primitives (line, circle, rectangle, etc.)
+    \item Draw some (at least 3, but they don't all have to be different) of the 
+            drawing primitives (line, circle, rectangle, etc.)
 \end{enumerate}
 
 \subsection{Extra Credit}
@@ -29,15 +30,14 @@ The following are extra credit options with increasing value:
 \begin{enumerate}
     \item Make the front and back switches move your character up and down along 
             with the left and right from the Main Requirements. (1~point)
-    \item Make an animation of some kind that lasts at least two seconds. (2~points)
-    \item Make a game that uses the buttons and the screen (5~points)
+    \item Make an animation of some kind that lasts at least two seconds. (1~points)
+    \item Make a game that uses the buttons and the screen (2~points)
 \end{enumerate}
 
 \section{Turn In}
 Turn in the following:
 \begin{enumerate}
-    \item A video of your board fulfilling the requirements in the Procedure section 
-            that includes both of your faces and you saying your names.
+    \item Make sure that the TA/Instructor signs off on your sketch demonstration.
     \item A PDF of your sketch.
     \item .ino versions of your sketch.
     \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
