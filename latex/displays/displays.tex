@@ -2,7 +2,20 @@
 \chaplabel{displays}
 
 \section{Purpose}
-The goal of this lab is to learn to use the TFT display.
+The goal of this lab is to learn to use the TFT display. Debouncing the buttons 
+so that an \lstinline|if| statement only executes once per press takes the most time.
+
+\begin{lstlisting}[language=C++, caption={This is example code for debouncing a button.},label={lst:debounceEx}]
+int lastButtonVal = 1;
+
+void loop() {
+    int curButtonVal = digitalRead(RIGHT_BUTTON_PIN);
+    if((lastButtonVal != curButtonVal) && !curButtonVal) {
+        // do something when button pressed
+    }
+    lastButtonVal = curButtonVal; // very important this is outside the if and inside loop()
+}
+\end{lstlisting}
 
 \section{Procedure}
 \subsection{Main Requirements}
