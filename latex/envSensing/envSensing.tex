@@ -79,7 +79,10 @@ library. It has to be done carefully though. Here is how to do it:
 This example reads the results from one (1) sensor per pass through the 
 \lstinline@loop()@ function. For your program, you will want to collect 
 all three sensors' data in a single pass through the \lstinline@loop()@ 
-function.
+function. 
+
+Start by just reading one DS1820 then after you have everything
+else working, come back and add in the rest of the DS1820 sensors.
 
 \subsection{SHT31 Temperature and Humidity Sensor}
 Use Adafruit's SHT31 library. Base your code on their example. Be sure 
