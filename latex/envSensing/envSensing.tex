@@ -15,7 +15,7 @@ appropriate labels and units if you can make them fit.
 	\item Both light intensities as a number between 0 and 1023 (unitless)
 	\item Potentiometer value as a voltage between 0 and 3.3~V
 	\item Temperature in Fahrenheit from TEMP0 (U27 attached to input 0 of U37)
-    \item Get SHT31 reporting temperature and humidity via Serial
+    \item Get SHT31 reporting temperature in F and humidity via Serial
     \item Add SHT31 data to display 
     \item Get compass (QMC5883L) reporting azimuth via Serial
     \item Add azimuth data to the display
@@ -108,7 +108,7 @@ library. It has to be done carefully though. Here is how to do it:
 \begin{enumerate}
     \item In the Arduino IDE install both the OneWire and OneWireNg libraries
     \item Open the OneWire example named \lstinline@DS18x20_Temperature@ 
-    \item Add this line above the \lstinline@#include <OneWire.h>@ line:\\
+    \item Make the first \lstinline|#include| in your file be:\\
             \lstinline@#include "OneWireNg_CurrentPlatform.h"@ 
     \item This example should now compile and run just fine 
 \end{enumerate}
@@ -132,7 +132,7 @@ the display with the appropriate labels and units if you can make them fit.
 	\item Both light intensities as a number between 0 and 1023 (unitless)
 	\item Potentiometer value as a voltage between 0 and 3.3~V
 	\item Temperature in Fahrenheit from TEMP0 (U27 attached to input 0 of U37)
-	\item The temperature and humidity from the SHT31 sensor
+	\item The temperature in Fahrenheit and humidity from the SHT31 sensor
 	\item The compass azimuth angle
 	\item The 3-axis accelerometer and gyroscope data (6 data points)
  	\item The temperatures from at least one 1-Wire DS18B20 sensor (can take about
