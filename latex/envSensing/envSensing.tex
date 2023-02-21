@@ -25,11 +25,6 @@ appropriate labels and units if you can make them fit.
     \item Display 1-Wire temperature(s) on display
 \end{enumerate}
 
-The light sensors, potentiometer, and temperature sensor are connected to ADS7142 
-analog-to-digital (ADC) sensors. There is a library in the normal library adding 
-method. Look for the library for the ADS7142 by Seth McNeill. After you install it,
-there should now be examples under Anitracks ADS7142. Follow the read2Ch example 
-combined with your previous work to complete this lab.
 
 \subsection{Suggestions}
 Use a \href{https://www.arduino.cc/reference/en/language/variables/data-types/stringobject/}{String} 
@@ -60,6 +55,13 @@ An example is shown in Listing \ref{lst:dispstr}.
 \end{lstlisting}
 However, if you want to have different portions of the text in different colors you will
 need to call \lstinline@tft.setTextColor@ between each \lstinline@tft.println@.
+
+\subsection{ADS7142 - TEMP0, POT, LIGHT1, LIGHT2}
+The light sensors, potentiometer, and temperature sensor are connected to ADS7142 
+analog-to-digital (ADC) sensors. There is a library in the normal library adding 
+method. Look for the library for the ADS7142 by Seth McNeill. After you install it,
+there should now be examples under Anitracks ADS7142. Follow the read2Ch example 
+combined with your previous work to complete this lab.
 
 \subsection{SHT31 Temperature and Humidity Sensor}
 Use Adafruit's SHT31 library. Base your code on their example. Be sure 
