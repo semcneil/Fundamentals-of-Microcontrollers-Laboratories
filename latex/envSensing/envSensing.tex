@@ -15,14 +15,14 @@ appropriate labels and units if you can make them fit.
 	\item Both light intensities as a number between 0 and 1023 (unitless)
 	\item Potentiometer value as a voltage between 0 and 3.3~V
 	\item Temperature in Fahrenheit from TEMP0 (U27 attached to input 0 of U37)
-    \item Get 1-Wire (DS18B20) sensors reporting temperatures via Serial
-    \item Display 1-Wire temperatures on display
     \item Get SHT31 reporting temperature and humidity via Serial
     \item Add SHT31 data to display 
     \item Get compass (QMC5883L) reporting azimuth via Serial
     \item Add azimuth data to the display
     \item Get IMU (LSM6DSOX) reporting accelerations and gyroscope data via Serial 
     \item Add accelerometer and gyroscope data to display
+    \item Get 1-Wire (DS18B20) sensor(s) reporting temperature(s) via Serial
+    \item Display 1-Wire temperature(s) on display
 \end{enumerate}
 
 The light sensors, potentiometer, and temperature sensor are connected to ADS7142 
@@ -60,29 +60,6 @@ An example is shown in Listing \ref{lst:dispstr}.
 \end{lstlisting}
 However, if you want to have different portions of the text in different colors you will
 need to call \lstinline@tft.setTextColor@ between each \lstinline@tft.println@.
-
-\subsection{1-Wire Sensors}
-As mentioned in class, the only library I have found to work with the Nano Connect 
-RP2040 is the \href{https://github.com/pstolarz/OneWireNg}{OneWireNg} library. 
-Unfortunately, the library examples are very complex. There is a simpler solution by 
-combining the examples from the OneWire library with the capabilities of the OneWireNg 
-library. It has to be done carefully though. Here is how to do it:
-\begin{enumerate}
-    \item In the Arduino IDE install both the OneWire and OneWireNg libraries
-    \item Open the OneWire example named \lstinline@DS18x20_Temperature@ 
-    \item Add this line above the \lstinline@#include <OneWire.h>@ line:\\
-            \lstinline@#include "OneWireNg_CurrentPlatform.h"@ 
-    \item This example should now compile and run just fine 
-\end{enumerate}
-
-\subsubsection{NOTE}
-This example reads the results from one (1) sensor per pass through the 
-\lstinline@loop()@ function. For your program, you will want to collect 
-all three sensors' data in a single pass through the \lstinline@loop()@ 
-function. 
-
-Start by just reading one DS1820 then after you have everything
-else working, come back and add in the rest of the DS1820 sensors.
 
 \subsection{SHT31 Temperature and Humidity Sensor}
 Use Adafruit's SHT31 library. Base your code on their example. Be sure 
@@ -122,6 +99,29 @@ Install the Arduino library for the LSM6DSOX IMU. Your program will need
 to use a combination of the SimpleAccelerometer and SimpleGyroscope examples.
 NOTE: This library returns acceleration in g's not $m/s^2$.
 
+\subsection{1-Wire Sensors}
+As mentioned in class, the only library I have found to work with the Nano Connect 
+RP2040 is the \href{https://github.com/pstolarz/OneWireNg}{OneWireNg} library. 
+Unfortunately, the library examples are very complex. There is a simpler solution by 
+combining the examples from the OneWire library with the capabilities of the OneWireNg 
+library. It has to be done carefully though. Here is how to do it:
+\begin{enumerate}
+    \item In the Arduino IDE install both the OneWire and OneWireNg libraries
+    \item Open the OneWire example named \lstinline@DS18x20_Temperature@ 
+    \item Add this line above the \lstinline@#include <OneWire.h>@ line:\\
+            \lstinline@#include "OneWireNg_CurrentPlatform.h"@ 
+    \item This example should now compile and run just fine 
+\end{enumerate}
+
+\subsubsection{NOTE}
+This example reads the results from one (1) sensor per pass through the 
+\lstinline@loop()@ function. For your program, you will want to collect 
+all three sensors' data in a single pass through the \lstinline@loop()@ 
+function. 
+
+Start by just reading one DS1820 then after you have everything
+else working, come back and add in the rest of the DS1820 sensors.
+
 \section{Main Requirements}
 Write a sketch with the following functionality:
 
@@ -132,10 +132,11 @@ the display with the appropriate labels and units if you can make them fit.
 	\item Both light intensities as a number between 0 and 1023 (unitless)
 	\item Potentiometer value as a voltage between 0 and 3.3~V
 	\item Temperature in Fahrenheit from TEMP0 (U27 attached to input 0 of U37)
- 	\item The temperatures from all 3 1-Wire DS18B20 sensors (takes ~3 seconds for acquisition)
 	\item The temperature and humidity from the SHT31 sensor
 	\item The compass azimuth angle
 	\item The 3-axis accelerometer and gyroscope data (6 data points)
+ 	\item The temperatures from at least one 1-Wire DS18B20 sensor (can take about
+            seconds for acquisition for 3 sensors). Do this part last.
 \end{enumerate}
 
 \section{Turn In}
@@ -153,10 +154,10 @@ Turn in the following:
     \item \href{https://www.adafruit.com/product/4383}{Adafruit 1.14" 240x135 Color TFT Display + MicroSD Card Breakout - ST7789}
     \item \href{https://www.arduino.cc/reference/en/libraries/adafruit-st7735-and-st7789-library/}{Adafruit ST7789 library}
     \item \href{https://learn.adafruit.com/adafruit-gfx-graphics-library}{Adafruit GFX library}
-    \item The \href{https://cdn-shop.adafruit.com/datasheets/DS18B20.pdf}{DS18B20 temperature sensor datasheet}
     \item The \href{https://sensirion.com/products/catalog/SHT31-DIS-B/}{SHT31 temperature and humidity sensor datasheet}
     \item The \href{https://www.filipeflop.com/img/files/download/Datasheet-QMC5883L-1.0%20.pdf}{QMC5883L compass datasheet}
     \item The \href{https://www.st.com/resource/en/datasheet/lsm6dsox.pdf}{LSM6DSOX IMU datasheet}    \item See the chapter in the \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} about displays
+    \item The \href{https://cdn-shop.adafruit.com/datasheets/DS18B20.pdf}{DS18B20 temperature sensor datasheet}
     \item PCB Schematic and Layout - see 
             \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
             in the Arduino Startup $\rightarrow$ Schematics and PCB section
