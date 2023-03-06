@@ -19,10 +19,15 @@ Use the Pololu library for the VL6180 sensor and set SCALING to 3.
 Write a sketch that drives your robot forward until the distance sensor senses something 
 (you choose a reasonable threshold), and then turns to avoid it and continues on. Remember
 that to drive the motors at different speeds, you can just use \lstinline@analogWrite@ on 
-one pin and set the other pin to 0 (\lstinline@digitalWrite(0)@). The motor pins are listed 
-as \lstinline@AIN1, AIN2, BIN1, BIN2@ which map to 0, 1, 8, and A2, respectively, on the 
-schematic. Do not mix \lstinline@analogWrite@ and \lstinline@digitalWrite@ on the same
-pin in the same program.
+one pin and set the other pin to 0 (\lstinline@analogWrite(0)@). In order for the motor to 
+actually spin, the number passed to \lstinline@analogWrite@ needs to be greater than 50. 
+The motor pins are listed as \lstinline@AIN1, AIN2, BIN1, BIN2@ which map to 0, 1, 8, 
+and A2, respectively, on the schematic. Do not mix \lstinline@analogWrite@ and 
+\lstinline@digitalWrite@ on the same pin in the same program.
+
+Also, make sure that the motor jumpers are set to bat, not +5V. This makes it so that 
+the big power switch has to be in the ON position for the motors to run. Be sure to 
+switch it on when you want the motors running. 
 
 \subsection{Servo}
 Write a sketch where the distance is measured every 10~degrees of servo movement. Plot the
