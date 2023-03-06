@@ -26,6 +26,12 @@ that has the following two parts:
             and make sure this example runs too.
     \item Choose which sensor you plan to use (not SW1 or the potentiometer)
     \item Choose how you want the board to react to positive and negative extrema 
+    \begin{enumerate}
+        \item NOTE: Your board must respond to a peak/valley (extrema), not just a threshold situation.
+        \item For example, if you are using a distance sensor, it must react to something
+                coming closer and then getting further away. It cannot just react to something 
+                getting closer like we did in the Distance, Motor, Servo lab.
+    \end{enumerate}
     \item Implement your choices of sensor and reactions
     \item Complete what is required to turn in
 \end{enumerate}
@@ -59,8 +65,7 @@ You can probably come up with more ideas for reactions.
 \section{Turn In}
 Turn in the following:
 \begin{enumerate}
-    \item A video of your board fulfilling the requirements in the Procedure section 
-            that includes both of your faces and you saying your names.
+    \item Have either the TA or the instructor sign-off on your lab
     \item A PDF of your sketch.
     \item .ino versions of your sketch.
     \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
