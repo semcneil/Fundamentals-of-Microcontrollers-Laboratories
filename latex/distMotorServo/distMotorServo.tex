@@ -9,11 +9,12 @@ servo motors.
 \subsection{Distance Calibration}
 Using an example sketch for the distance sensor, create a calibration curve for the distance 
 sensor out to it's maximum sensing distance using the lid of the shoebox as a target. The 
-calibration curve should use at least 5 points and have the readout (0-765ish) on the x-axis
+calibration curve should use at least 5 points and have the readout (0-255ish) on the x-axis
 and actual, measured distance on the y-axis. It is fastest to just print the distances out and 
 then record them onto another document rather than trying to save them off to the SD card.
 Plot the calibration curve in your favorite data analysis software (Python, Matlab, Excel, etc.). 
-Use the Pololu library for the VL6180 sensor and set SCALING to 3.
+Use the Pololu library for the VL6180 sensor and set SCALING to 1 for this part of the assignment.
+Set SCALING to 3 for everything else.
 
 \subsection{DC Motors}
 Write a sketch that drives your robot forward until the distance sensor senses something 
@@ -28,6 +29,9 @@ and A2, respectively, on the schematic. Do not mix \lstinline@analogWrite@ and
 Also, make sure that the motor jumpers are set to bat, not +5V. This makes it so that 
 the big power switch has to be in the ON position for the motors to run. Be sure to 
 switch it on when you want the motors running. 
+
+Lastly, be sure to do this with SCALING set to 3 so that the detection distance can 
+be longer.
 
 \subsection{Servo}
 Write a sketch where the distance is measured every 10~degrees of servo movement. Plot the
