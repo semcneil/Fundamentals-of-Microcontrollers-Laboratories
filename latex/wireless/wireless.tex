@@ -17,15 +17,23 @@ Before you start this lab, be sure you have updated the following:
     \begin{enumerate}
         \item WiFiNINA
         \item ArduinoBLE
+        \item stm32duino's ST25DV library
     \end{enumerate}
 \end{enumerate}
 
+\subsection{WiFi startup}
+Follow the WiFiNINA No Encryption example to connect your board to the network.
+
 \subsection{NFC}
 The ST25DV library is the one in the Arduino Library Manager written by stm32duino.
-Use the example to make sure that your NFC chip is updated with the latest
-IP address for your module (this requires adding WiFi connection to your sketch), 
-and one of your email addresses. Test this and as with each other section, 
-demonstrate this to your instructor/TA.
+Use version 1.0.1 of the library for the current examples to work. The library also 
+shows as INCOMPATIBLE even though it works fine. Make sure the example (NFC\_Demo.ino) 
+works as it is supposed to. It should cycle 
+different things (website, call, text, etc.) each time you press the button. Put 
+the top of your phone near the coil that says NFC on the bottom left of the robot.
+
+Change the example to show one of your email addresses and the IP address of your 
+Nano RP2040 Connect. Demonstrate this to your instructor/TA.
 
 To convert the IPAddress to a \lstinline@String@ try the following:\\
 \lstinline@IPAddress ip = WiFi.localIP();@\\
