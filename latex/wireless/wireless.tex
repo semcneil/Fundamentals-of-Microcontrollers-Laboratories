@@ -52,12 +52,58 @@ instructor/TA.
 \subsection{Bluetooth Low Energy}
 Be sure to generate your own UUIDs for your particular project. If you use
 the UUIDs from the examples, you will not be able to tell if you are connecting
-to your board or someone else's who is using the same UUIDs. You can use the 
+to your board or someone else's who is using the same UUIDs. Use the 
 \href{https://www.uuidgenerator.net/}{UUID Generator} to create random UUIDs.
+Use UUIDs in the form returned by the website. If you create custom ones with 
+a different format, the Bluetooth examples fail.
 Be sure to set the device (\lstinline@BLE.setDeviceName@) and local names 
 (\lstinline@BLE.setLocalName@) on all boards to something unique to 
 your group so that you can find it when scanning.
 
+\subsubsection{Phone to Robot Interface}
+Use the example code (\lstinline@BLE_ButtonLED@) (being sure to change UUIDs, device name and local name)
+to turn an LED on and off on the robot from your phone. Change the code to 
+do something else (buzzer, NeoPixel, motor (carefully), servo) when you change 
+the value via the Bluetooth interface. Also, show the button on the board changing
+the value read on your phone using the Notify property.
+
+\subsubsection{Inter-Robot Interface}
+For this part of the lab you will need to work with another group. Using the example 
+of a peripheral (\lstinline@BLE-ButtonLED.ino@) and central (\lstinline@BLE-LED-Central.ino@)
+, use one robot to control something on the other robot.
+
+% This took difficult library installs and seemed to waste time. 
+% update it with instructions about what libraries to install
+% \subsection{Clock}
+% Using the \lstinline@sd-time-logger.ino@ example for setting the 
+% RTC for the SD card, write a program that gets the current time, 
+% then displays the time in the format HH:MM:SS and the date 
+% (on a different line) in the format YYYY-MM-DD on the display 
+% that updates each second. Install the \lstinline@RP2040_RTC@ 
+% library with NONE of the other dependencies. 
+
+
+\section{Shutdown}
+Be sure to turn off the battery switch prior to putting the robot away.
+
+\section{Turn In}
+Turn in the following:
+\begin{enumerate}
+    \item Have either the TA or the instructor sign-off on your lab
+    \item A PDF of your NFC sketch.
+    \item .ino versions of your NFC sketch.
+    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
+            for the output of the \lstinline$getIDs$ sketch. 
+\end{enumerate}
+
+\section{Resources}\label{sec:wirelessresources}
+\begin{enumerate}
+    \item \href{https://www.uuidgenerator.net/}{UUID Generator} 
+    \item PCB Schematic and Layout - see 
+            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
+            in the Arduino Startup $\rightarrow$ Schematics and PCB section
+\end{enumerate}
+This explains some of the code you are using.
 \subsubsection{Peripheral Setup}
 \begin{enumerate}
     \item Include Arduino's BLE library \\
@@ -141,49 +187,5 @@ if(buttonCharacteristic && buttonCharacteristic.canRead() && buttonCharacteristi
     }
 }          
         \end{lstlisting}
-\end{enumerate}
-
-\subsubsection{Phone to Robot Interface}
-Use the example code (\lstinline@BLE_ButtonLED@) (being sure to change UUIDs, device name and local name)
-to turn an LED on and off on the robot from your phone. Change the code to 
-do something else (buzzer, NeoPixel, motor (carefully), servo) when you change 
-the value via the Bluetooth interface. Also, show the button on the board changing
-the value read on your phone using the Notify property.
-
-\subsubsection{Inter-Robot Interface}
-For this part of the lab you will need to work with another group. Using the example 
-of a peripheral (\lstinline@BLE-ButtonLED.ino@) and central (\lstinline@BLE-LED-Central.ino@)
-, use one robot to control something on the other robot.
-
-% This took difficult library installs and seemed to waste time. 
-% update it with instructions about what libraries to install
-% \subsection{Clock}
-% Using the \lstinline@sd-time-logger.ino@ example for setting the 
-% RTC for the SD card, write a program that gets the current time, 
-% then displays the time in the format HH:MM:SS and the date 
-% (on a different line) in the format YYYY-MM-DD on the display 
-% that updates each second. Install the \lstinline@RP2040_RTC@ 
-% library with NONE of the other dependencies. 
-
-
-\section{Shutdown}
-Be sure to turn off the battery switch prior to putting the robot away.
-
-\section{Turn In}
-Turn in the following:
-\begin{enumerate}
-    \item Have either the TA or the instructor sign-off on your lab
-    \item A PDF of your NFC sketch.
-    \item .ino versions of your NFC sketch.
-    \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
-            for the output of the \lstinline$getIDs$ sketch. 
-\end{enumerate}
-
-\section{Resources}\label{sec:wirelessresources}
-\begin{enumerate}
-    \item \href{https://www.uuidgenerator.net/}{UUID Generator} 
-    \item PCB Schematic and Layout - see 
-            \href{https://github.com/semcneil/Fundamentals-of-Microcontrollers-Manual}{class manual} 
-            in the Arduino Startup $\rightarrow$ Schematics and PCB section
 \end{enumerate}
 
