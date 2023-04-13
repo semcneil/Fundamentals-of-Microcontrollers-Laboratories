@@ -89,6 +89,20 @@ of a peripheral (\lstinline@BLE-ButtonLED.ino@) and central (\lstinline@BLE-LED-
 % that updates each second. Install the \lstinline@RP2040_RTC@ 
 % library with NONE of the other dependencies. 
 
+\subsection{AJAX}
+There are 3 files on Canvas:
+\begin{enumerate}
+    \item AJAX-Robot.ino 
+    \item arduino\_secrets.h
+    \item index.h 
+\end{enumerate}
+Open the .ino file and then put the other files in the same directory. Make sure
+to add them to the sketch (Sketch$\rightarrow$Add File) so that they show up as separate 
+tabs. Upload the file to the robot. Once it has uploaded and the LEDs are green,
+put your phone next to the NFC and go to the URL listed (you must be on the 
+EagleNet WiFi for it to load). Once you are on the site you can control the 
+builtin LED, the servo position, and the NeoPixel color as well as read the 
+distance measurement.
 
 \section{Shutdown}
 Be sure to turn off the battery switch prior to putting the robot away.
