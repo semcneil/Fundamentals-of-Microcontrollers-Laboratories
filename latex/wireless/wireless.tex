@@ -22,7 +22,9 @@ Before you start this lab, be sure you have updated the following:
 \end{enumerate}
 
 \subsection{WiFi startup}
-Follow the WiFiNINA No Encryption example to connect your board to the network.
+Follow the WiFiNINA No Encryption example to connect your board to the network. Be 
+sure to change the \lstinline|SECRET_SSID| to be \lstinline|EagleNet| in the 
+\lstinline|arduino_secrets.h| file.
 
 \subsection{NFC}
 The ST25DV library is the one in the Arduino Library Manager written by stm32duino.
@@ -35,9 +37,13 @@ the top of your phone near the coil that says NFC on the bottom left of the robo
 Change the example to show one of your email addresses and the IP address of your 
 Nano RP2040 Connect. Demonstrate this to your instructor/TA.
 
-To convert the IPAddress to a \lstinline@String@ try the following:\\
+In your code, after WiFi has connected, convert the IPAddress to a \lstinline@String@ 
+with the following:\\
 \lstinline@IPAddress ip = WiFi.localIP();@\\
-\lstinline@String ipString = String(ip[0]) + "." + ip[1] + "." + ip[2] + "." + ip[3];@
+\lstinline@String ipString = String(ip[0]) + "." + ip[1] + "." + ip[2] + "." + ip[3];@\\
+Now that you have the IP address as a String, you can update \lstinline|NFC_messages| to 
+have the IP address String in the correct position. Also update \lstinline|NFC_protocols|
+to use http NOT https.
 
 \subsection{UDP Between Boards}
 Run the examples \lstinline@WiFiUdpSend@ and \lstinline@WiFiUdpReceiveSend@, one 
