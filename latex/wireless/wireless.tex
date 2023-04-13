@@ -42,8 +42,9 @@ with the following:\\
 \lstinline@IPAddress ip = WiFi.localIP();@\\
 \lstinline@String ipString = String(ip[0]) + "." + ip[1] + "." + ip[2] + "." + ip[3];@\\
 Now that you have the IP address as a String, you can update \lstinline|NFC_messages| to 
-have the IP address String in the correct position. Also update \lstinline|NFC_protocols|
+have the IP address String in the correct position. Also update \lstinline|NFC_protocols| 
 to use http NOT https.
+
 
 \subsection{UDP Between Boards}
 Run the examples \lstinline@WiFiUdpSend@ and \lstinline@WiFiUdpReceiveSend@, one 
