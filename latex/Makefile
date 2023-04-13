@@ -11,3 +11,5 @@ clean:
 	rm *.pdf
 	find .. -type f -name '*.aux' -delete
 	rm ../docs/*.pdf
+	echo "Sleeping to let the files settle"
+	sleep 2
