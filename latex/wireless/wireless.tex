@@ -17,7 +17,7 @@ Before you start this lab, be sure you have updated the following:
     \begin{enumerate}
         \item WiFiNINA
         \item ArduinoBLE
-        \item stm32duino's ST25DV library (version 1.0.1, NOT current version)
+        \item stm32duino's ST25DV library
     \end{enumerate}
 \end{enumerate}
 
@@ -28,9 +28,8 @@ double quotes the \lstinline|arduino_secrets.h| file.
 
 \subsection{NFC}
 The ST25DV library is the one in the Arduino Library Manager written by stm32duino.
-Use version 1.0.1 of the library for the current examples to work. The library also 
-shows as INCOMPATIBLE even though it works fine. Make sure the example (NFC\_Demo.ino) 
-works as it is supposed to. It should cycle 
+The library also shows as INCOMPATIBLE even though it works fine. Make sure the 
+example (NFC\_Demo.ino) works as it is supposed to. It should cycle 
 different things (website, call, text, etc.) each time you press the button. Put 
 the top of your phone near the coil that says NFC on the bottom left of the robot.
 
@@ -77,7 +76,9 @@ the value read on your phone using the Notify property.
 \subsubsection{Inter-Robot Interface}
 For this part of the lab you will need to work with another group. Using the example 
 of a peripheral (\lstinline@BLE-ButtonLED.ino@) and central (\lstinline@BLE-LED-Central.ino@)
-, use one robot to control something on the other robot.
+, use one robot to control something on the other robot. Note that you need a different UUID
+for each of the peripheral, LED, and Button characteristics but the UUIDs have the be the 
+same between the two sketches. Also, the LocalName needs to agree between the sketches.
 
 % This took difficult library installs and seemed to waste time. 
 % update it with instructions about what libraries to install
