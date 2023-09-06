@@ -7,6 +7,7 @@
 # Seth McNeill
 # 2023 February 21
 
+git push origin dev
 git checkout main
 git merge dev
 git push origin main
