@@ -186,8 +186,11 @@ The v0.5 board has 4 buttons. SW1 is attached to A0 and can be read directly usi
 connected to the PCA9535 I2C to GPIO chip with an address of 0x20 and have to be 
 accessed using the PCA95x5 library. 
 
-Remember to install the McNeill version of the PCA95x5 library from a Github zip 
-file, not the library from the standard Arduino library manager.
+%Remember to install the McNeill version of the PCA95x5 library from a Github zip 
+%file, not the library from the standard Arduino library manager.
+Remember to install the PCA95x5 library as follows:
+In Sketch $\rightarrow$ Include Library $\rightarrow$ Manage Libraries search for 
+PCA9535 and install the latest version of the one by hideakitai.
 
 \begin{enumerate}
     \item Include the PCA95x5 library
@@ -201,7 +204,7 @@ file, not the library from the standard Arduino library manager.
         \item Set the polarity: \lstinline@muxU31.polarity(PCA95x5::Polarity::ORIGINAL_ALL)@ 
         \item Set the direction: \lstinline@muxU31.direction(0x????)@ remembering that a 1 is 
                 an input and a 0 is an output. Set non-connected pins as outputs. Change the 
-                question marks appropriately.
+                question marks appropriately by looking at the schematics in the Class Manual.
     \end{enumerate}
     \item Once the object is properly setup, read values with the \lstinline@read()@ 
             method. This returns a 16-bit number representing the 16 inputs on the chip.
@@ -310,15 +313,10 @@ A minimal sketch to do all these is shown in Listing~\ref{lst:neopixelsetup}
 \section{Procedure}
 Write a sketch with the following functionality:
 \begin{enumerate}
+    \item Reacts to all 4 buttons on the board in some way such as sound, light, or Serial. 
+            THIS IS THE HARDEST PART. START HERE.
     \item Reads in values from the serial port and does something in response.
     \item Writes information to the serial port in response to some stimulus/stimuli.
-    \item Reacts to all 4 buttons on the board in some way.
-    \begin{enumerate}
-        \item The other buttons are the most difficult part of this lab. START HERE
-        \item Playing a tone
-%        \item Lighting up the LED display from the last lab
-        \item NeoPixels
-    \end{enumerate} 
     \item Creates a tone in response to some stimulus.
     \item Make the NeoPixels do something.
 \end{enumerate}
