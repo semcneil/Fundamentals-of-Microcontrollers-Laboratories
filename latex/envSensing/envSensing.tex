@@ -63,6 +63,13 @@ method. Look for the library for the ADS7142 by Seth McNeill. After you install 
 there should now be examples under Anitracks ADS7142. Follow the read2Ch example 
 combined with your previous work to complete this lab.
 
+For converting to voltage, note that the ADS7142 is a 12-bit ADC but returns values 
+as 16-bit which means that the maxADCValue is 65535. The reference voltage is 3.3~V.
+
+As a contrast, if you read the voltage from A6 and A7 and use analogRead, the 
+maxADCValue is 1023 since they return 10-bit values and the reference voltage 
+is 1.1~V.
+
 \subsection{SHT31 Temperature and Humidity Sensor}
 Use Adafruit's SHT31 library. Base your code on their example. Be sure 
 to make sure that the heater is off. For this class, you do not need to 
