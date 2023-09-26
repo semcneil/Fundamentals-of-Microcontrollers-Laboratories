@@ -59,9 +59,14 @@ need to call \lstinline@tft.setTextColor@ between each \lstinline@tft.println@.
 \subsection{ADS7142 - TEMP0, POT, LIGHT1, LIGHT2}
 The light sensors, potentiometer, and temperature sensor are connected to ADS7142 
 analog-to-digital (ADC) sensors. There is a library in the normal library adding 
-method. Look for the library for the ADS7142 by Seth McNeill. After you install it,
+method. Look for the library for the ADS7142 named as being by either Seth McNeill 
+or Anitracks. Different versions of the IDE show different names for the same library.
+After you install it,
 there should now be examples under Anitracks ADS7142. Follow the read2Ch example 
-combined with your previous work to complete this lab.
+combined with your previous work to complete this lab. Note, that there are two 
+ADS7142s on the board and each has a different address and two inputs for a total 
+of 4 inputs. Check the schematics in the class manual to know which address goes 
+to which inputs.
 
 The light sensors are CdS light reactive resistors setup as resistor dividers. They 
 are located in the bottom left and right corners of the circuit board and look like 
