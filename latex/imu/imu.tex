@@ -38,8 +38,11 @@ It is best to follow this outline to finish this lab most efficiently.
     \end{enumerate}
     \item As the second part of the lab, load the example named \lstinline@SDReadWrite@ 
     \item Run it to make sure it works as advertised.
+    \item NOTE: File names have to be 8.3 -- maximum of 8 characters before the . and 3 after it.
     \item Change it to save \lstinline@t@ (from curTime), \lstinline@ax@, \lstinline@az@, 
             \lstinline@theta_g@, \lstinline@theta_a@, and \lstinline@theta@ to the SD card 
+    \item Delete the file reading operations and make sure that the first write truncates and 
+            subsequent ones do not.
     \item Notice what \lstinline@dt@ is now.
     \item Make of plot of the data in Matlab, Python, or your other favorite program for making good plots.
 \end{enumerate}
