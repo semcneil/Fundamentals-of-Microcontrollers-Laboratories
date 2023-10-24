@@ -2,91 +2,137 @@
 \chaplabel{machineLearning}
 
 \section{Purpose}
-The Arduino Nano Connect RP2040 has the LSM6DSOX IMU made by ST Microelectronics. It has 
-a Machine Learning Core inside. It also has some preset systems inside for detecting 
-the following:
-\begin{enumerate}
-    \item 6D orientation (up, down, left, right, front, back)
-    \item Free fall detection 
-    \item Pedometer (counting steps)
-    \item Tap detection, both single and double tap 
-    \item Tilt detection (for orienting screens as users rotate the device)
-    \item Wake up detection to let the device (microcontroller) know the device has moved
-\end{enumerate}
-Today's lab will run each of the built-in systems plus a pretrained ML model.
+This is an introduction to pattern recognition/machine learning by creating a 
+word recognition system on \href{https://edgeimpulse.com/}{Edge Impulse} and 
+deploying it on the Nano RP2040 Connect. 
 
 \section{Laboratory}
-\subsection{Download Examples}
-There is a zip file on Canvas named LSM6DSOX\_Examples.zip. Download and extract the zip 
-file. Move the resulting folder into your sketch directory (usually named arduino or Arduino 
-inside your Documents folder). Now try opening one of the examples from within the Arduino IDE.
-If you can find it in your File $\rightarrow$ Sketchbook menu, you have put them in the right
-place.
-
-\subsection{Install Library}
-Install the STM32duino\_LSM6DSOX library in the Arduino IDE since these examples rely on 
-it for the interface to the IMU.
-
-\subsection{Running Examples}
-Run each of the following examples noting that the outputs will all be via the serial port:
-
-\subsubsection{6D Orientation}
-Open the example named LSM6DSOX\_6DOrientation. Compile and upload it to the board. When it
-runs, it should output a drawing indicating the orientation as you rotate the board.
-
-\subsubsection{Free Fall Detection}
-Don't drop or throw the board! Open the example named LSM6DSOX\_FreeFallDetection. Compile 
-and upload it to your board. When it is running, raise and lower the board while holding it 
-and it should send an output when it thinks it is in free fall. 
-
-\subsubsection{Pedometer}
-Open the example named LSM6DSOX\_Pedometer. Compile and upload it to the board. Once it is 
-running it should print out the number of steps periodically. Shake the board up and down 
-to imitate walking and it should increment the counter.
-
-\subsubsection{Tap Detection}
-Open the example named LSM6DSOX\_TapDetect. Compile and upload it to the board. Once it is 
-running try tapping the side of the board/module (not front, back, or top). The serial should 
-output single tap and double tap as it thinks it is tapped.
-
-\subsubsection{Tilt Detection}
-Open the example named LSM6DSOX\_TiltDetection. Compile and upload it to the board. Once it is 
-running try tilting the board after letting it sit in one orientation for a bit. It should 
-trigger a serial output when you move the board.
-
-\subsubsection{Wake Up Detection}
-Open the example named LSM6DSOX\_WakeUpDetection. Compile and upload it to the board. Once it is 
-running try moving the board after letting it sit still for a bit. It should trigger a serial 
-output when you move the board.
-
-\subsubsection{Machine Learning Example}
-Open the example named LSM6DSOX\_MLC. Compile and upload it to the board. Once it is 
-running try moving the board to simulate walking, running, biking, driving, unknown, and 
-staying stationary. Walking and jogging are the easiest to get with vertical motion (Z-axis). 
-Biking seems to be lateral motion (X- or Y-axis). I have seen driving once but don't remember 
-how I got it. I have never seen unknown.
-
-\subsection{Using the Examples}
-Take one or more of the examples and do something with them. It could be as simple as 
-adding sound or screen output to the example(s) or something more.
-
-\medskip
-
-\noindent Have fun!
-
-\subsection{Extra Credit}
-Use the two light sensors at the bottom of the board to detect location of a hand over the
-board. There should be four (4) categories:
+\subsection{Creating and Installing Voice Recognition}
 \begin{enumerate}
-    \item No hand present
-    \item Hand on left side
-    \item Hand on right side
-    \item Hand in the middle (between the sensors)
+  \item Go to the \href{https://edgeimpulse.com/}{Edge Impulse} website and create an 
+account. 
+  \item It is going to try to start you on a tutorial. These directions assume you quit 
+      the tutorial.
+  \item Find the blue ``+ Create new project'' button and press it 
+  \item Enter a name for the project and press ``Create new project''
+  \item Click on the Data acquisition tab on the left
+  \item Upload a folder containing individual word samples one at a time
+  \begin{enumerate}
+    \item It can mess up if it tries to auto label the samples
+    \item Label the samples according to what they represent (yes, no, noise, etc.)
+    \item There is a zip file on Canvas named keywords2.zip which contains yes, no, noise, and unknown examples
+    \item Follow the link in Resources to find a Google repository with more words if you want something else
+    \item Making your own recordings can work, but will be time consuming since you need 5-10 min of examples 
+            for each word you want recognized.
+    \item Choose: Select folder, choose the folder, automatically split, Enter label
+  \end{enumerate}
+
+  \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.6]{machineLearning/data.png}
+    \caption{Once the data is uploaded this figure shows what your project should look like.}
+    \label{fig:edgeimpulsedata}
+  \end{figure} 
+
+  \item Click on Impulse design
+  \item Leave it on Time series data, window of 1000 ms, window increase of 500 ms.
+  \item Change the Frequency to 20000 Hz and leave Zero-pad checked
+  \item Choose MFCC as the audio features
+  \item Classification should have a small number of Output features 
+          (4 in my example for no, noise, unknown, yes)
+  \item Click Save Impulse
+  \item Click on MFCC
+  \item Click on Save parameters
+  \item Click on the Generate features tab
+  \item Then click on the Generate features button. This will take awhile
+  \item Once that finishes (green complete in console), click on your model 
+          (name under MFCC)
+  \item Change the number of training cycles to 50
+  \item Change the Learning rate to 0.005
+  \item Change the target (upper right) to Raspberry Pi RP2040 (Cortex-M0+ 133MHz)
+  \item Click Start training. This will also take awhile.
+  \item Once that completes, click on Deployment on the left 
+  \item Search deployment options for Arduino library
+  \item Click Build
+  \item After it finishes it should download a zip file and show some directions
+  \item Follow the directions to install the library and open the RP2040 Microphone example 
+  \item Try running the example and see if the Serial output shows the word you say as the 
+          most likely thing heard. Note that it only listens every few seconds. Watch the 
+          serial port output for when it's recording.
 \end{enumerate}
 
-You get more extra credit for creating Gaussian (normal) models of each class and 
-use them to find the optimal thresholds between the classes. You also need to plot 
-the data to show the thresholds.
+\subsection{Using the Recognition}
+The library example as written does not output which class is the most likely candidate.
+Improve the \lstinline|print_inference_result| function to detect which class has the 
+highest likelihood and have it print out that class name and its probability.
+
+Once you have that capability, check to see if the class is one of the spoken words (yes or no vs 
+noise or unknown in my example). If it is, play a tone. 
+
+You should also be able to make it drive quite easily as a reaction to your spoken word. To make 
+the NeoPixels work, you will need to try a different library. I suspect the screen will not work, but
+have not tried it yet.
+
+% need to insert images
+
+% \section{Laboratory}
+% \subsection{Download Examples}
+% There is a zip file on Canvas named LSM6DSOX\_Examples.zip. Download and extract the zip 
+% file. Move the resulting folder into your sketch directory (usually named arduino or Arduino 
+% inside your Documents folder). Now try opening one of the examples from within the Arduino IDE.
+% If you can find it in your File $\rightarrow$ Sketchbook menu, you have put them in the right
+% place.
+
+% \subsection{Install Library}
+% Install the STM32duino\_LSM6DSOX library in the Arduino IDE since these examples rely on 
+% it for the interface to the IMU.
+
+% \subsection{Running Examples}
+% Run each of the following examples noting that the outputs will all be via the serial port:
+
+% \subsubsection{6D Orientation}
+% Open the example named LSM6DSOX\_6DOrientation. Compile and upload it to the board. When it
+% runs, it should output a drawing indicating the orientation as you rotate the board.
+
+% \subsubsection{Free Fall Detection}
+% Don't drop or throw the board! Open the example named LSM6DSOX\_FreeFallDetection. Compile 
+% and upload it to your board. When it is running, raise and lower the board while holding it 
+% and it should send an output when it thinks it is in free fall. 
+
+% \subsubsection{Pedometer}
+% Open the example named LSM6DSOX\_Pedometer. Compile and upload it to the board. Once it is 
+% running it should print out the number of steps periodically. Shake the board up and down 
+% to imitate walking and it should increment the counter.
+
+% \subsubsection{Tap Detection}
+% Open the example named LSM6DSOX\_TapDetect. Compile and upload it to the board. Once it is 
+% running try tapping the side of the board/module (not front, back, or top). The serial should 
+% output single tap and double tap as it thinks it is tapped.
+
+% \subsubsection{Tilt Detection}
+% Open the example named LSM6DSOX\_TiltDetection. Compile and upload it to the board. Once it is 
+% running try tilting the board after letting it sit in one orientation for a bit. It should 
+% trigger a serial output when you move the board.
+
+% \subsubsection{Wake Up Detection}
+% Open the example named LSM6DSOX\_WakeUpDetection. Compile and upload it to the board. Once it is 
+% running try moving the board after letting it sit still for a bit. It should trigger a serial 
+% output when you move the board.
+
+% \subsubsection{Machine Learning Example}
+% Open the example named LSM6DSOX\_MLC. Compile and upload it to the board. Once it is 
+% running try moving the board to simulate walking, running, biking, driving, unknown, and 
+% staying stationary. Walking and jogging are the easiest to get with vertical motion (Z-axis). 
+% Biking seems to be lateral motion (X- or Y-axis). I have seen driving once but don't remember 
+% how I got it. I have never seen unknown.
+
+% \subsection{Using the Examples}
+% Take one or more of the examples and do something with them. It could be as simple as 
+% adding sound or screen output to the example(s) or something more.
+
+% \medskip
+
+% \noindent Have fun!
 
 \section{Turn In}
 Turn in the following:
@@ -100,6 +146,9 @@ Turn in the following:
 
 \section{Resources}\label{sec:machinelearningresources}
 \begin{enumerate}
+    \item \href{https://pietropoluzzi.it/blog/ml/edge-impulse/voice-recognition/}{Voice recognition tutorial}
+    \item \href{https://docs.edgeimpulse.com/docs/pre-built-datasets/keyword-spotting}{Yes, no, unkown, noise dataset}
+    \item \href{https://blog.research.google/2017/08/launching-speech-commands-dataset.html}{Google keywords dataset}
     \item \href{https://github.com/stm32duino/LSM6DSOX/blob/main/src/LSM6DSOXSensor.h}{LSM6DSOX Library Header}
     \item \href{https://www.st.com/resource/en/datasheet/lsm6dsox.pdf}{LSM6DSOX Datasheet}
     \item PCB Schematic and Layout - see 
