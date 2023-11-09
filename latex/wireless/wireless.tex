@@ -11,7 +11,6 @@ your other sketches inside the Arduino folder.
 \subsection{Preparation}
 Before you start this lab, be sure you have updated the following:
 \begin{enumerate}
-    \item The Arduino IDE to the latest in the 1.x series (not the 2.x IDE)
     \item WiFiNINA module firmware
     \item The main libraries used for this lab 
     \begin{enumerate}
@@ -28,7 +27,7 @@ double quotes the \lstinline|arduino_secrets.h| file.
 
 \subsection{NFC}
 The ST25DV library is the one in the Arduino Library Manager written by stm32duino.
-The library also shows as INCOMPATIBLE even though it works fine. Make sure the 
+The library may show as INCOMPATIBLE even though it works fine. Make sure the 
 example (NFC\_Demo.ino) works as it is supposed to. It should cycle 
 different things (website, call, text, etc.) each time you press the button. Put 
 the top of your phone near the coil that says NFC on the bottom left of the robot.
@@ -67,7 +66,7 @@ Be sure to set the device (\lstinline@BLE.setDeviceName@) and local names
 your group so that you can find it when scanning.
 
 \subsubsection{Phone to Robot Interface}
-Use the example code (\lstinline@BLE_ButtonLED@) (being sure to change UUIDs, device name and local name)
+Use the example code (\lstinline@BLE_ButtonLED@) (being sure to change UUIDs, device name, and local name)
 to turn an LED on and off on the robot from your phone. Change the code to 
 do something else (buzzer, NeoPixel, motor (carefully), servo) when you change 
 the value via the Bluetooth interface. Also, show the button on the board changing
