@@ -2,45 +2,43 @@
 \chaplabel{arduino}
 
 \section{Installing the IDE}
-We want to try installing the IDE at least two different ways. First, on the lab computer, then on your personal
-computers if you have them. Both lab partners should try installing the software on the lab computer, each with 
-their own login.
+We want to try using the IDE at least two different ways. First, on the lab computer, then on your personal
+computers if you have them. 
 
 \subsection{Lab Computer}
-This method may also work on your personal computers.
 \begin{enumerate}
-    \item On the search bar, type in Microsoft Store.
-    \item Click on Microsoft Store
-    \item In the store search, type arduino
-    \item If you have the option to choose between version 1.x and 2.x, use 1.x.
-    \item Arduino IDE App should appear, click on it
-    \item Click on Get
-    \item You do not need to sign into Microsoft to make this install work even if prompted
-    \item Once it has installed, run the Arduino IDE app. 
-	\item It should load up with a window that looks like Figure \ref{fig:emptysketch}.
-	\item Try rebooting the computer, logging in and seeing if the Arduino app is still present.
+    \item On the search bar, type in Arduino. It should come up with Arduino IDE. 
+    \item Click on Arduino IDE
+    \item A script (DOS prompt) may appear for a bit. 
+    \item After what could seem like a long time, the Arduino IDE should load.
+    \item It should load up with a window that looks like Figure \ref{fig:emptysketch}.
+    \item You will likely be prompted to upgrade the IDE since the installed software lags 
+            behind the latest version a bit. It shouldn't matter if you use the installed 
+            version and do not upgrade.
 \end{enumerate}
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=1.0]{arduinoStart/emptysketch.PNG}
-	\caption{This is what the Arduino IDE should load up to.}
+	\includegraphics[scale=0.4]{arduinoStart/emptysketch.PNG}
+	\caption{This is what the Arduino IDE should look like when it loads.}
 	\label{fig:emptysketch}
 \end{figure} 
 
 \subsection{Personal Computer}
 \begin{enumerate}
 	\item Go to software download page: \href{https://www.arduino.cc/en/software}{https://www.arduino.cc/en/software}
-	\item Scroll down to Legacy IDE (1.8.x)
-	\item Download the Windows ZIP file (not the first link or the app) for 1.8.19
-	\item Open the zip file and copy the folder inside (arduino-1.8.19 as of this writing) into your One Drive folder. This may take a while. If you are on your own computer, you can use any of the programs.
+	\item Download the Windows ZIP file (not the first link or the app) for the latest version (2.2.1 at this writing)
+	\item Open the zip file and copy the folder inside (arduino-2.2.1 as of this writing) into your One Drive folder. This may take a while. If you are on your own computer, you can use any of the programs.
 	\item Once that transfer finishes, go into the folder and run arduino.exe. Windows will try to save you, but if you click More Info you can click Run Anyway.
 	\item Windows Defender Firewall will also complain. Uncheck the box that is checked and/or click Cancel.
 	\item It should load up with a window that looks like Figure \ref{fig:emptysketch}.
 \end{enumerate}
+If you want to use one of the other installation methods on your own computer that should be fine too.
 
 \section{Testing the Setup}
 \subsection{Installing the Board Drivers}
+The board should already be correctly installed on the lab computers, but in case it isn't or you are setting 
+up your own computer, here are the instructions to install the board drivers. 
 \begin{enumerate}
 	\item In order to get it to connect correctly to your board, you need to install the Arduino Nano Connect RP2040 board.
 	\begin{enumerate}
@@ -66,19 +64,21 @@ This method may also work on your personal computers.
 
 \subsubsection{Compiling, Uploading, and Running}
 This section can be done on either (or both) computers. The results from one run (between both lab partners)
-is all that needs to be turned in.
+is needs to be turned in.
 \begin{enumerate}
 	\item Now go to Files$\rightarrow$Examples$\rightarrow$01.Basics$\rightarrow$Blink.
 	\item This will open another window with the Blink program.
 	\item Go to Tools$\rightarrow$Board$\rightarrow$Arduino Mbed OS Nano Boards and select the Arduino Nano RP2040 Connect
 	\item Go to Tools$\rightarrow$Port and select the COM that isn't COM1 (mine showed up as COM5)
-	\item Click the right arrow under the word edit in the menu to Upload the sketch to the Arduino board.
-	\item It should say ``Compiling sketch..." in the lower left and show a progress bar on the lower right.
+	\item Click the right arrow in the top left of the window to Upload the sketch to the Arduino board.
+	\item It should say ``Compiling sketch..." in the lower right and show a progress bar on the lower right.
 	\item Then it should switch to Uploading... and finally Done Uploading.
 	\item An orange light near the USB port on your board should be blinking.
 	\item Congratulations! You have programmed your board!
-	\item Now look in the program for the two delay statements. Try changing the values inside the parentheses and re-uploading it. Does the blinking change?
-	\item In order to save files and have it portable, you need to change the directory where the Arduino IDE stores it's sketchbooks
+	\item Now look in the program for the two delay statements. Try changing the values inside the 
+          parentheses and re-uploading it. Does the blinking change?
+	\item In order to save files and have it portable, you need to change the directory where the 
+          Arduino IDE stores it's sketchbooks
 	\begin{enumerate}
 		\item Go to File$\rightarrow$Preferences
 		\item Change the Sketchbook location to your OneDrive and a folder named arduino (lowercase is good)
@@ -87,7 +87,35 @@ is all that needs to be turned in.
 	\end{enumerate}
 	\item Now try saving the blink sketch with your changed values.
 	\item Demonstrate your working blink and it's storage location to your instructor/TA
-	\item Here are some other Examples to test:
+\end{enumerate}
+
+\section{USB Demos}
+There are two USB demos to show for this lab as well--USB keyboard and USB mouse.
+\subsection{USB Keyboard}
+\begin{enumerate}
+  \item Go to File$\rightarrow$Examples$\rightarrow$USBHID under Examples for 
+      the Arduino Nano RP2040 Connect and choose Keyboard. 
+  \item This example will type "Hello world" every second forever. 
+  \item Modify this to say something pleasant and unique to your lab group 
+  \item Modify it to only run once rather than repeated every second (hint: setup vs loop function)
+  \item It should now only run once and you get it to run again by pressing the reset button on the 
+    Nano Connect (the only button on the actual module).
+  \item Demo this to the TA or instructor.
+  \item Have a look at the KeyboardModifiers example to think about doing something other than just typing.
+  \item As a thought exercise, could you program the board to advance PowerPoint slides every 5 seconds?
+\end{enumerate}
+
+\subsection{USB Mouse}
+\begin{enumerate}
+  \item Go to File$\rightarrow$Examples$\rightarrow$USBHID under Examples for 
+      the Arduino Nano RP2040 Connect and choose Mouse. 
+  \item This demo moves the mouse arrow between two points around the original location.
+  \item Customize the sketch for your lab group.
+  \item Demonstrate this to the TA or instructor. 
+\end{enumerate}
+
+\section{Other examples}
+	Here are some other Examples that might interest you:
 	\begin{enumerate}
 		\item Basics $\rightarrow$ fade: change the variable \lstinline|led| to have the value 
             \lstinline|LED_BUILTIN|, watch the red/orange LED pulse
@@ -99,28 +127,32 @@ is all that needs to be turned in.
 				 Note that this program isn't written as well as the others since you have to change a number in two
 				places. Could you rewrite it better?
 	\end{enumerate}
-    \item Finally, create a sketch called \lstinline$getIDs$ using the code at \\ 
+
+\section{Finishing Up}
+  \begin{enumerate}
+    \item Create a sketch called \lstinline$getIDs$ using the code at \\ 
         \href{https://github.com/semcneil/CEC325Examples/blob/main/getIDs/getIDs.ino}{https://github.com/semcneil/CEC325Examples/blob/main/getIDs/getIDs.ino}
     \item You will need to install two libraries to make this script run.
     \begin{enumerate}
-        \item Go to Sketch $\rightarrow$ Include Library $\rightarrow$ Manage Libraries 
+        \item Go to Sketch$\rightarrow$Include Library$\rightarrow$Manage Libraries 
         \item Install the ArduinoECCX08 and OneWireNG (only version 0.12.2 or earlier) libraries
     \end{enumerate}
     \item Run \lstinline$getIDs$ and submit the results in the end of lab Canvas quiz. The results will be 
                 in the Serial Monitor which can be accessed through Tools$\rightarrow$Serial Monitor or the 
-                button in the top right of the IDE. Don't forget that \lstinline$getIDs$ requires two libraries:
+                button in the top right of the IDE. It should show 3 IDs for SD18B20 and one crypto serial 
+                number. Don't forget that \lstinline$getIDs$ requires two libraries:
         \begin{enumerate}
             \item ArduinoECCX08
             \item OneWireNg version 0.12.x. Version 0.13.x doesn't work
         \end{enumerate}
 \end{enumerate}
 
-
 \section{Turn In}
 \begin{enumerate}
-    \item Make sure that the TA or instructor has signed off on your modified blink sketch.
-    \item Submit a PDF of your edited blink.ino and the .ino of your blink sketch. The easiest way
-            to create a PDF is to print to PDF. Only one 
+    \item Make sure that the TA or instructor has signed off on your modified blink, keyboard, and mouse sketches.
+    \item Submit both a PDF of your edited keyboard.ino and the original .ino file of your keyboard sketch. 
+            This version of the IDE does not allow printing or saving as a PDF, so you will need to copy the 
+            text out of the sketch into something like Word and then save as PDF. Only one 
             submission per group is required but make sure that both your names are on the sketch.
     \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
             for the output of the \lstinline$getIDs$ sketch. Both group members should complete
