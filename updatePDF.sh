@@ -19,6 +19,7 @@ make clean
 sleep 2
 echo "Making new PDF"
 make
+sleep 5
 git status
 echo "------Adding pdf to commmit"
 git add docs/Fundamentals-of-Microcontrollers-Lab.pdf -f
