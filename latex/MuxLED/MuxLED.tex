@@ -65,7 +65,7 @@ Now to begin showing some numbers on the 7-segment display.
     \item Run the script in Listing \ref{lst:leddispstart} to make sure it runs. Beware of copying
             multiple lines from a PDF to the Arduino IDE since it often adds in unwanted characters. 
             Also, underscores (\_) and some other symbols sometimes fail to transfer correctly. The 
-            is also available for download from the class Canvas site.
+            sketch is also available for download from the class Canvas site.
     \item Change the script so that it displays four consecutive numbers such as 1234. You can use
             any 4 consecutive, single digit numbers.
     \item Demonstrate your sketch working to a TA or instructor.
@@ -130,7 +130,10 @@ This new sketch should count up from 0 to 9 (or 0000 to 0009) incrementing once 
 this counting to a TA/instructor and get it signed off.
 
 \subsection{Extra credit: 2 pts}
-Have your counting system count in increments of 1 using more than one digit (i.e. count to 99 if two digits).
+Have your counting system count in increments of 1 using more than one digit (i.e. 
+count from 00 to 99 if two digits). You must do the full count to 99, 999, or 9999,
+not just count to 10. It should reset (overflow) back to zero and keep counting 
+when it reaches the maximum. 
 \subsection{Extra Credit Hints}
 \begin{enumerate}
     \item Use the \lstinline|millis()| function to update count every second. The 
