@@ -88,7 +88,7 @@ Now to begin showing some numbers on the 7-segment display.
    
    void setup() {
      Serial.begin(115200);
-     while(!Serial);
+     delay(3000);
      Serial.println("Starting...");
    
      // initialize object
