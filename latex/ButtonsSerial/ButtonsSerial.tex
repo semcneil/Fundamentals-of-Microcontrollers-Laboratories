@@ -213,7 +213,7 @@ PCA9535 and install the latest version of the one by hideakitai.
                 an input and a 0 is an output. Set non-connected pins as outputs. Change the 
                 question marks appropriately by looking at the schematics in the Class Manual 
                 linked to in the \nameref{sec:buttonserialresources} Section. Note that 
-                the only outputs on U31 are Prox1ALRT and SHT31\_RST. Set pins that are not 
+                the only outputs on U31 are Prox1EN and SHT31\_RST. Set pins that are not 
                 connected as outputs too.
     \end{enumerate}
     \item Once the object is properly setup, read values with the \lstinline@read()@ 
@@ -295,7 +295,8 @@ A minimal sketch to do all these is shown in Listing~\ref{lst:neopixelsetup}
    void loop() {
      for(int ii = 0; ii < NEO_COUNT; ii++) {
       // set all the pixels to purple
-      strip.setPixelColor(ii, strip.Color(255,0,255));
+      // 255 is max brightness and is hard on the eyes
+      strip.setPixelColor(ii, strip.Color(120,0,120));
      }
      strip.show();
      delay(1000);
