@@ -77,7 +77,8 @@ that they can be used later.
     since that process garbles some of the characters.},label={lst:serialreceiveexample}]
     /*  CEC325-SerialRcv.ino
     *  
-    *  Demonstrates receiving and reacting to serial input.
+    *  Demonstrates receiving and reacting to serial
+    *  input.
     *  Uses the ERAU CEC325 board v0.3 which has an 
     *  Arduino Nano RP2040 Connect on board.
     *  
@@ -98,7 +99,7 @@ that they can be used later.
    void setup() {
      // initialize serial:
      Serial.begin(115200);
-     while(!Serial) delay(100); // Require serial
+     delay(3000);
      Serial.println("Starting...");
      
      // make the pins outputs:
@@ -107,7 +108,7 @@ that they can be used later.
      pinMode(LEDB, OUTPUT);  // WiFiNINA RGB LED blue
      pinMode(RIGHT_BUTTON_PIN, INPUT);  
      pinMode(LED_BUILTIN, OUTPUT);
-     pinMode(BUZZ_PIN, OUTPUT);  // buzzer pin is output
+     pinMode(BUZZ_PIN, OUTPUT);  // buzz pin as output
    }
    
    void loop() {
@@ -115,8 +116,10 @@ that they can be used later.
        // characters have been received
        char inChar = Serial.read();
        switch(inChar) {
-         case 'a': digitalWrite(LED_BUILTIN,HIGH); break;
-         case 'A': digitalWrite(LED_BUILTIN,LOW); break;
+         case 'a': digitalWrite(LED_BUILTIN,HIGH); 
+                   break;
+         case 'A': digitalWrite(LED_BUILTIN,LOW); 
+                   break;
          case 'b': digitalWrite(LEDB, HIGH); break;
          case 'r': digitalWrite(LEDR, HIGH); break;
          case 'g': digitalWrite(LEDG, HIGH); break;
@@ -124,7 +127,9 @@ that they can be used later.
          case 'o': ledsOff(); break;
          case 'z': tone(BUZZ_PIN, 1000, 100); break;
          case '\n': break;
-         default: Serial.print("Unknown character: "); Serial.println(inChar);
+         default: 
+             Serial.print("Unknown character: "); 
+             Serial.println(inChar);
        }
      }
    }
@@ -140,8 +145,10 @@ that they can be used later.
    // Adds characters received subsequent to +
    void add() {
      Serial.println("Adding single digit numbers");
-     int a = Serial.read() - 48; // subtract off value of ASCII 0
-     int b = Serial.read() - 48; // subtract off value of ASCII 0
+     // subtract off value of ASCII 0
+     int a = Serial.read() - 48; 
+     // subtract off value of ASCII 0
+     int b = Serial.read() - 48; 
      Serial.print(a);
      Serial.print('+');
      Serial.print(b);
@@ -267,15 +274,17 @@ A minimal sketch to do all these is shown in Listing~\ref{lst:neopixelsetup}
     */
    
    #include <Adafruit_NeoPixel.h> // NeoPixel library
-   
-   #define NEO_PIN           17  // WARNING! THIS IS GPIO NOT D NUMBER for NeoPixels
-   #define NEO_COUNT         18  // number of NeoPixels
+   // WARNING! NEO_PIN IS GPIO NOT D NUM for NeoPixel
+   #define NEO_PIN    17  
+   #define NEO_COUNT  18  // number of NeoPixels
    
    // Declare our NeoPixel strip object:
    Adafruit_NeoPixel strip(NEO_COUNT, NEO_PIN, NEO_GRB + NEO_KHZ800);
    
    void setup() {
      Serial.begin(115200);
+     delay(3000);
+     Serial.println("Starting...");
    
      // Setup NeoPixels
      strip.begin();
@@ -285,8 +294,8 @@ A minimal sketch to do all these is shown in Listing~\ref{lst:neopixelsetup}
    
    void loop() {
      for(int ii = 0; ii < NEO_COUNT; ii++) {
-       // set all the pixels to purple
-       strip.setPixelColor(ii, strip.Color(255,0,255));
+      // set all the pixels to purple
+      strip.setPixelColor(ii, strip.Color(255,0,255));
      }
      strip.show();
      delay(1000);
