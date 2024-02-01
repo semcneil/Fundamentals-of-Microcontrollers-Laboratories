@@ -210,11 +210,11 @@ PCA9535 and install the latest version of the one by hideakitai.
                 \lstinline@muxU31.attach(Wire, 0x20)@
         \item Set the polarity: \lstinline@muxU31.polarity(PCA95x5::Polarity::ORIGINAL_ALL)@ 
         \item Set the direction: \lstinline@muxU31.direction(0x????)@ remembering that a 1 is 
-                an input and a 0 is an output. Set non-connected pins as outputs. Change the 
+                an input and a 0 is an output. Change the 
                 question marks appropriately by looking at the schematics in the Class Manual 
                 linked to in the \nameref{sec:buttonserialresources} Section. Note that 
-                the only outputs on U31 are Prox1EN and SHT31\_RST. Set pins that are not 
-                connected as outputs too.
+                the only outputs on U31 are Prox1EN and SHT31\_RST all the other pins are 
+                inputs. Set pins that are not connected as outputs too.
     \end{enumerate}
     \item Once the object is properly setup, read values with the \lstinline@read()@ 
             method. This returns a 16-bit number representing the 16 inputs on the chip.
