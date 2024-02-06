@@ -10,10 +10,13 @@ int lastButtonVal = 1;
 
 void loop() {
     int curButtonVal = digitalRead(RIGHT_BUTTON_PIN);
-    if((lastButtonVal != curButtonVal) && !curButtonVal) {
+    if((lastButtonVal != curButtonVal) && 
+        !curButtonVal) {
         // do something when button pressed
     }
-    lastButtonVal = curButtonVal; // very important this is outside the if and inside loop()
+    // very important this is outside 
+    // the if and inside loop()
+    lastButtonVal = curButtonVal; 
 }
 \end{lstlisting}
 
