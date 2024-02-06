@@ -21,8 +21,8 @@ appropriate labels and units if you can make them fit.
     \item Add azimuth data to the display
     \item Get IMU (LSM6DSOX) reporting accelerations and gyroscope data via Serial 
     \item Add accelerometer and gyroscope data to display
-    \item Get 1-Wire (DS18B20) sensor(s) reporting temperature(s) via Serial
-    \item Display 1-Wire temperature(s) on display
+    % \item Get 1-Wire (DS18B20) sensor(s) reporting temperature(s) via Serial
+    % \item Display 1-Wire temperature(s) on display
 \end{enumerate}
 
 
@@ -117,7 +117,7 @@ Install the Arduino library for the LSM6DSOX IMU. Your program will need
 to use a combination of the SimpleAccelerometer and SimpleGyroscope examples.
 NOTE: This library returns acceleration in g's not $m/s^2$.
 
-\subsection{1-Wire Sensors}
+\subsection{(Extra Credit) 1-Wire Sensors}
 As mentioned in class, the only library I have found to work with the Nano Connect 
 RP2040 is the \href{https://github.com/pstolarz/OneWireNg}{OneWireNg} library. This 
 library has to be of a version less than 0.13 as of 2023 September 21.
@@ -157,7 +157,7 @@ the display with the appropriate labels and units if you can make them fit.
 	\item The temperature in Fahrenheit and humidity from the SHT31 sensor
 	\item The compass azimuth angle
 	\item The 3-axis accelerometer and gyroscope data (6 data points)
- 	\item The temperatures from at least one 1-Wire DS18B20 sensor (can take about
+ 	\item (Extra Credit) The temperatures from at least one 1-Wire DS18B20 sensor (can take about
             seconds for acquisition for 3 sensors). Do this part last.
 \end{enumerate}
 
