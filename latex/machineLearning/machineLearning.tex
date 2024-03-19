@@ -4,9 +4,14 @@
 \section{Purpose}
 This is an introduction to pattern recognition/machine learning by creating a 
 word recognition system on \href{https://edgeimpulse.com/}{Edge Impulse} and 
-deploying it on the Nano RP2040 Connect. 
+deploying it on the Nano RP2040 Connect. This lab also includes looking at 
+the examples already programmed into the IMU.
 
 \section{Laboratory}
+NOTE: There will be several points where you will be waiting significant amounts of 
+time for Edge Impulse to run calculations. During this time, run the IMU examples 
+in Section \ref{sec:IMUMLexamples}.
+
 \subsection{Creating and Installing Voice Recognition}
 \begin{enumerate}
   \item Go to the \href{https://edgeimpulse.com/}{Edge Impulse} website and create an 
@@ -63,13 +68,13 @@ account.
   \item Click on MFCC
   \item Click on Save parameters
   \item Click on the Generate features tab
-  \item Then click on the Generate features button. This will take awhile
+  \item Then click on the Generate features button. This can take several minutes.
   \item Once that finishes (green complete in console), click on your model 
           (name under MFCC)
   \item Change the number of training cycles to 50
   \item Change the Learning rate to 0.005
   \item Change the target (upper right) to Raspberry Pi RP2040 (Cortex-M0+ 133MHz)
-  \item Click Start training. This will also take awhile. 
+  \item Click Start training. This can also take several minutes.
   \item After training, the page should look like Figure~\ref{fig:edgeimpulsetrained}
 
   \begin{figure}[!htb]
@@ -126,8 +131,8 @@ In your subsequent functions, the NeoPixels are controlled as shown:
 
 I suspect the screen will not work, but have not tried it yet.
 
-\section{Extras}
-If you'd like to see some examples of already created recognition models, try out the 
+\section{IMU Examples \label{sec:IMUMLexamples}}
+While you are waiting for Edge Impulse to run, try out the 
 capabilities of the IMU on your board. 
 
 \subsection{Download Examples}
