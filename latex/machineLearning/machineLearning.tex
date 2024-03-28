@@ -14,8 +14,9 @@ in Section \ref{sec:IMUMLexamples}.
 
 \subsection{Creating and Installing Voice Recognition}
 \begin{enumerate}
-  \item Go to the \href{https://edgeimpulse.com/}{Edge Impulse} website and create an 
-account. 
+  \item Go to the \href{https://edgeimpulse.com/}{Edge Impulse} website 
+  \item Click on Get Started
+  \item Look for and sign up for a ``free community account''
   \item It is going to try to start you on a tutorial. These directions assume you quit 
       the tutorial.
   \item Find the blue ``+ Create new project'' button and press it 
@@ -31,6 +32,8 @@ account.
             for each word you want recognized.
     \item Choose: Select folder, choose the folder, automatically split, Enter label so it should look 
             like Figure \ref{fig:edgeimpulseupload}.
+    \item Some of the files uploaded may not load. As long as most of the files in the directory upload
+            correctly you are fine.
 
   \begin{figure}[!htb]
     \centering
@@ -114,8 +117,9 @@ The library example as written does not output which class is the most likely ca
           (yes, no in my example)
 \end{enumerate}
 
-You should also be able to make it drive quite easily as a reaction to your spoken word. To make 
-the NeoPixels work, use the \lstinline|NeoPixelConnect| library. Initialize it to use PIO 1, 
+You should also be able to make it drive quite easily as a reaction to your spoken word. 
+Don't use NeoPixels until you have already been signed off for having it do something else first.
+To make the NeoPixels work, use the \lstinline|NeoPixelConnect| library. Initialize it to use PIO 1, 
 state machine 0 like this before your \lstinline|setup()| function:
 \begin{lstlisting}
   #define NEO_PIN   17
@@ -195,8 +199,8 @@ how I got it. I have never seen unknown.
 Turn in the following:
 \begin{enumerate}
     \item Have either the TA or the instructor sign-off on your lab
-    \item A PDF of your sketch.
-    \item .ino versions of your sketch.
+    \item A PDF of your recognition sketch.
+    \item .ino version of your recognition sketch.
     \item Fill out the end of lab quiz prior to leaving. Note that it includes asking you 
             for the output of the \lstinline$getIDs$ sketch. 
 \end{enumerate}
