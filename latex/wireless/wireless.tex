@@ -11,7 +11,7 @@ your other sketches inside the Arduino folder.
 \subsection{Preparation}
 Before you start this lab, be sure you have updated the following:
 \begin{enumerate}
-    \item WiFiNINA module firmware
+    \item WiFiNINA module firmware (Tools $\rightarrow$ Firmware Updater)
     \item The main libraries used for this lab 
     \begin{enumerate}
         \item WiFiNINA
@@ -76,14 +76,15 @@ Use the example code (\lstinline@BLE_ButtonLED@) (being sure to change UUIDs, de
 to turn an LED on and off on the robot from your phone. Change the code to 
 do something else (buzzer, NeoPixel, motor (carefully), servo) when you change 
 the value via the Bluetooth interface. Also, show the button on the board changing
-the value read on your phone using the Notify property.
+the value read on your phone using the Notify property. Demo this for your instructor/TA.
 
 \subsubsection{Inter-Robot Interface}
 For this part of the lab you will need to work with another group. Using the example 
 of a peripheral (\lstinline@BLE-ButtonLED.ino@) and central (\lstinline@BLE-LED-Central.ino@)
 , use one robot to control something on the other robot. Note that you need a different UUID
 for each of the peripheral, LED, and Button characteristics but the UUIDs have the be the 
-same between the two sketches. Also, the LocalName needs to agree between the sketches.
+same between the two sketches. Also, the LocalName needs to agree between the sketches. Demo 
+this working for your instructor/TA.
 
 % This took difficult library installs and seemed to waste time. 
 % update it with instructions about what libraries to install
@@ -108,7 +109,7 @@ tabs. Upload the file to the robot. Once it has uploaded and the LEDs are green,
 put your phone next to the NFC and go to the URL listed (you must be on the 
 EagleNet WiFi for it to load). Once you are on the site you can control the 
 builtin LED, the servo position, and the NeoPixel color as well as read the 
-distance measurement.
+distance measurement. Demo this working for your instructor/TA.
 
 \section{Shutdown}
 Be sure to turn off the battery switch prior to putting the robot away.
