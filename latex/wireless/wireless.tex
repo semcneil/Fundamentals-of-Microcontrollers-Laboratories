@@ -28,8 +28,8 @@ double quotes the \lstinline|arduino_secrets.h| file.
 \subsection{NFC}
 The ST25DV library is the one in the Arduino Library Manager written by stm32duino.
 The library may show as INCOMPATIBLE even though it works fine. Make sure the 
-example (NFC\_Demo.ino) works as it is supposed to. It should cycle 
-different things (website, call, text, etc.) each time you press the button. Put 
+example (NFC\_Demo.ino) from Canvas works as it is supposed to. It should cycle 
+different things (website, call, text, etc.) each time you press right the button. Put 
 the top of your phone near the coil that says NFC on the bottom left of the robot.
 
 Change the example to show one of your email addresses and the IP address of your 
@@ -41,12 +41,15 @@ with the following:\\
 \lstinline@String ipString = String(ip[0]) + "." + ip[1] + "." + ip[2] + "." + ip[3];@\\
 Now that you have the IP address as a String, you can update \lstinline|NFC_messages| to 
 have the IP address String in the correct position. Also update \lstinline|NFC_protocols| 
-to use http NOT https.
+to use http NOT https. Note that you have to update an element of the \lstinline|NFC_messages| 
+array and it has to be done AFTER the WiFi has been setup. This cannot be done where the array is 
+initialized before the \lstinline|setup()| function. 
 
 
 \subsection{UDP Between Boards}
-Run the examples \lstinline@WiFiUdpSend@ and \lstinline@WiFiUdpReceiveSend@, one 
-on each of 2 boards. Be sure to update \lstinline@remoteIp@ in the 
+Working with another group, run the examples \lstinline@WiFiUdpSend@ and 
+\lstinline@WiFiUdpReceiveSend@ from the Wifi.zip file, one on each of 2 boards. 
+Be sure to update \lstinline@remoteIp@ in the 
 \lstinline@WiFiUdpSend@ sketch to be the IP address of the other board. Once 
 running, the right button on the \lstinline@@ board should turn the LED on 
 the other board on and off.
@@ -64,6 +67,9 @@ a different format, the Bluetooth examples fail.
 Be sure to set the device (\lstinline@BLE.setDeviceName@) and local names 
 (\lstinline@BLE.setLocalName@) on all boards to something unique to 
 your group so that you can find it when scanning.
+
+You will need a Bluetooth app for your phone. Some app names to look for are BlueFruit Connect,
+LightBlue, and nRF Connect.
 
 \subsubsection{Phone to Robot Interface}
 Use the example code (\lstinline@BLE_ButtonLED@) (being sure to change UUIDs, device name, and local name)
