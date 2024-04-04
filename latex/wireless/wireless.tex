@@ -23,7 +23,7 @@ Before you start this lab, be sure you have updated the following:
 \subsection{WiFi startup}
 Follow the WiFiNINA No Encryption example to connect your board to the network. Be 
 sure to change the \lstinline|SECRET_SSID| to have \lstinline|EagleNet| between the 
-double quotes the \lstinline|arduino_secrets.h| file.
+double quotes in the \lstinline|arduino_secrets.h| file.
 
 \subsection{NFC}
 The ST25DV library is the one in the Arduino Library Manager written by stm32duino.
@@ -33,17 +33,21 @@ different things (website, call, text, etc.) each time you press right the butto
 the top of your phone near the coil that says NFC on the bottom left of the robot.
 
 Change the example to show one of your email addresses and the IP address of your 
-Nano RP2040 Connect. Demonstrate this to your instructor/TA.
+Nano RP2040 Connect. This is done by copying over the WiFi connection block from the 
+WiFiNINA No Encryption example to your \lstinline|setup()| function. 
 
-In your code, after WiFi has connected, convert the IPAddress to a \lstinline@String@ 
-with the following:\\
+In your \lstinline|setup()| function, after WiFi has connected, convert the IPAddress to a 
+\lstinline@String@ with the following:\\
 \lstinline@IPAddress ip = WiFi.localIP();@\\
 \lstinline@String ipString = String(ip[0]) + "." + ip[1] + "." + ip[2] + "." + ip[3];@\\
-Now that you have the IP address as a String, you can update \lstinline|NFC_messages| to 
-have the IP address String in the correct position. Also update \lstinline|NFC_protocols| 
+Now that you have the IP address as a String, you can update the element of \lstinline|NFC_messages| 
+that has erau.edu to 
+have the IP address String. Also update \lstinline|NFC_protocols| 
 to use http NOT https. Note that you have to update an element of the \lstinline|NFC_messages| 
 array and it has to be done AFTER the WiFi has been setup. This cannot be done where the array is 
 initialized before the \lstinline|setup()| function. 
+
+Demonstrate this to your instructor/TA.
 
 
 \subsection{UDP Between Boards}
