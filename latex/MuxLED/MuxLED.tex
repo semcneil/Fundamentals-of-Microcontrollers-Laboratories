@@ -138,7 +138,13 @@ when it reaches the maximum.
 \begin{enumerate}
     \item Use the \lstinline|millis()| function to update count every second. The 
             following \lstinline|if| statement shows an example of how to do this: \\
-            \lstinline|if(millis() - lastUpdate > updateInterval)|
+            \lstinline|if(millis() - lastUpdate > updateInterval)| \\
+            Be sure to update 
+            \lstinline|lastUpdate| to the current value of \lstinline|millis()| inside
+            the \lstinline|if| statement. \lstinline|lastUpdate| should be of type 
+            \lstinline|unsigned long| and be declared as a \lstinline|static| variable 
+            or in a global scope so that it's value persists between calls of the 
+            \lstinline|loop()| function.
     \item I used an array for the segments required for each number something like \\
             \lstinline|nums[] = {0xAB,0x1C,...}|  // values not correct
     \item I also used an array to specify which digit is showing, something like \\
