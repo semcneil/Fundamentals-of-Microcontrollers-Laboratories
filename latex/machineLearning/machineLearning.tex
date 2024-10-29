@@ -25,8 +25,9 @@ in Section \ref{sec:IMUMLexamples}.
   \item Upload a folder containing individual word samples one at a time
   \begin{enumerate}
     \item It can mess up if it tries to auto label the samples
-    \item Label the samples according to what they represent (yes, no, noise, etc.)
-    \item There is a zip file on Canvas named keywords2.zip which contains yes, no, noise, and unknown examples
+    \item Label the samples according to what they represent (go, stop, left, right, etc.)
+    \item There is a zip file on Canvas named keywords.zip which contains go, stop, left, right, etc., and unknown examples
+    \item I would suggest picking only a couple of words and a noise/uknown category rather than all the word categories.
     \item Follow the link in Resources to find a Google repository with more words if you want something else
     \item Making your own recordings can work, but will be time consuming since you need 5-10 min of examples 
             for each word you want recognized.
@@ -115,8 +116,9 @@ The library example as written does not output which class is the most likely ca
           of the most likely class and its probability.
   \item There is a \lstinline|for| loop that lists all the classes and their probabilities.
   \item Modify this for loop to find the category with the maximum probability
-  \item Have the script play a different tone when the classes of interest 
-          (yes, no in my example) are most probable.
+  \item Have the script play a different tone for each of the classes of interest 
+          (yes, no in my example) when they are the most probable class. For example
+          have it play a 1000~Hz tone for left and 3000~Hz tone for right.
 \end{enumerate}
 
 You should also be able to make it drive quite easily as a reaction to your spoken word. 
